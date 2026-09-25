@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Río de Janeiro · Plan de viaje</title>
+<style>
+:root{
+  --sea:#00a8a8; --sea-dark:#017575; --sun:#ffc93c; --coral:#ff6b6b; --sand:#fff6e3;
+  --bg:#fbf7ee; --card:#ffffff; --ink:#1c2b33; --sub:#5b6b73; --line:#e7ddc7;
+  --good:#1f8a55; --bad:#c94b4b; --chip:#eef7f7;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#10181b; --card:#182226; --ink:#eef3f2; --sub:#9fb0b3; --line:#25343a; --chip:#122528; --sand:#1b2a2c;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#10181b; --card:#182226; --ink:#eef3f2; --sub:#9fb0b3; --line:#25343a; --chip:#122528; --sand:#1b2a2c;
+}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:920px;margin:0 auto;padding:0 16px 60px}
+header.hero{
+  padding:env(safe-area-inset-top,0px) 0 0;
+  background:linear-gradient(135deg,var(--sea) 0%,var(--sea-dark) 55%,#014a4a 100%);
+  color:#fff; padding-left:16px; padding-right:16px; padding-bottom:22px; position:relative; overflow:hidden;
+}
+header.hero::after{content:"";position:absolute;right:-30px;top:-30px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,var(--sun) 0%,transparent 70%);opacity:.5}
+.hero-inner{max-width:920px;margin:0 auto;position:relative;padding-top:18px}
+.badge{display:inline-block;background:rgba(255,255,255,.18);border-radius:999px;padding:4px 12px;font-size:12.5px;letter-spacing:.04em;text-transform:uppercase;margin-bottom:10px}
+h1{margin:0 0 4px;font-size:clamp(28px,6vw,40px);line-height:1.05}
+.hero p{margin:2px 0;opacity:.92;font-size:14.5px}
+.hero-stats{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.stat{background:rgba(255,255,255,.14);border-radius:12px;padding:8px 12px;font-size:13px}
+.stat b{display:block;font-size:16px}
+nav.tabs{display:flex;gap:6px;overflow-x:auto;padding:14px 0 4px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+nav.tabs::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:9px 13px;font-size:13px;cursor:pointer;color:var(--ink);white-space:nowrap;text-align:left;line-height:1.25}
+.tab small{display:block;color:var(--sub);font-size:11px}
+.tab.active{background:var(--coral);border-color:var(--coral);color:#fff}
+.tab.active small{color:#ffe3e3}
+section.day{display:none;padding-top:6px}
+section.day.active{display:block}
+.daytitle{display:flex;align-items:center;gap:10px;margin:10px 0 4px;flex-wrap:wrap}
+.daytitle h2{margin:0;font-size:21px}
+.flag{font-size:12px;font-weight:700;padding:3px 10px;border-radius:999px;color:#fff}
+.flag.cumple{background:var(--coral)}
+.flag.fiesta{background:#8a4fd8}
+.flag.variado{background:var(--sun);color:#3a2c00}
+.daynote{color:var(--sub);font-size:13.5px;margin:0 0 14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 16px;margin-bottom:12px;cursor:pointer;transition:transform .12s}
+.card:active{transform:scale(.99)}
+.card-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.card-top h3{margin:0 0 3px;font-size:16.5px}
+.time{color:var(--sea-dark);font-weight:700;font-size:12.5px}
+.pricepill{background:var(--chip);color:var(--sea-dark);border-radius:999px;padding:4px 10px;font-size:12.5px;font-weight:700;white-space:nowrap}
+.card p.desc{margin:6px 0 8px;font-size:13.5px;color:var(--sub)}
+.tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
+.tag{font-size:11px;background:var(--sand);border-radius:8px;padding:3px 8px;color:var(--sub)}
+.transit{font-size:12.5px;color:var(--sub);margin-top:6px;display:flex;gap:6px;align-items:center}
+.variedad-mini{border-top:1px dashed var(--line);margin-top:8px;padding-top:8px;font-size:13px;color:var(--sub)}
+.variedad-mini div{margin-bottom:4px}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:flex-end;justify-content:center;z-index:50}
+.overlay.show{display:flex}
+.modal{background:var(--card);width:100%;max-width:600px;max-height:88vh;overflow-y:auto;border-radius:20px 20px 0 0;padding:20px 20px calc(20px + env(safe-area-inset-bottom,0px))}
+@media (min-width:700px){.overlay{align-items:center}.modal{border-radius:20px;max-height:82vh}}
+.modal h3{margin:0 0 2px;font-size:19px}
+.modal .time{display:block;margin-bottom:10px}
+.close{float:right;background:var(--chip);border:none;color:var(--ink);border-radius:50%;width:30px;height:30px;font-size:16px;cursor:pointer}
+.section-h{font-size:12.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--sub);margin:16px 0 6px;font-weight:700}
+.budget-table{width:100%;border-collapse:collapse;font-size:13.5px}
+.budget-table td{padding:6px 0;border-bottom:1px solid var(--line)}
+.budget-table td:last-child{text-align:right;font-weight:600;white-space:nowrap}
+.budget-total td{border-bottom:none;padding-top:10px;font-weight:800;font-size:15px}
+.proscons{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px}
+@media (max-width:480px){.proscons{grid-template-columns:1fr}}
+.pc-box{border-radius:12px;padding:10px 12px;font-size:13px}
+.pc-box.pro{background:rgba(31,138,85,.1)}
+.pc-box.con{background:rgba(201,75,75,.1)}
+.pc-box b{display:block;margin-bottom:4px;font-size:12px;text-transform:uppercase;letter-spacing:.03em}
+.pc-box.pro b{color:var(--good)} .pc-box.con b{color:var(--bad)}
+.pc-box ul{margin:0;padding-left:16px}
+.pc-box li{margin-bottom:3px}
+.axes{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 2px}
+.axis{font-size:11.5px;background:var(--chip);border-radius:8px;padding:4px 9px}
+.reqs{font-size:13px;color:var(--sub);margin:0;padding-left:18px}
+.reqs li{margin-bottom:4px}
+.info-block{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px;margin:22px 0}
+.info-block h3{margin:0 0 8px;font-size:16px}
+.info-block p, .info-block li{font-size:13.5px;color:var(--sub);line-height:1.5}
+footer.note{font-size:12px;color:var(--sub);text-align:center;margin-top:20px}
+.rsvp-list{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;min-height:22px}
+.rsvp-chip{font-size:12.5px;border-radius:999px;padding:4px 10px;display:inline-flex;gap:4px;align-items:center;white-space:nowrap}
+.rsvp-chip.yes{background:rgba(31,138,85,.15);color:var(--good)}
+.rsvp-chip.no{background:rgba(201,75,75,.12);color:var(--bad)}
+.rsvp-form{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.rsvp-form input{flex:1;min-width:140px;padding:9px 11px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font-size:13.5px}
+.rsvp-btns{display:flex;gap:6px}
+.rsvp-btns button{border:none;border-radius:10px;padding:9px 13px;font-size:13px;cursor:pointer;font-weight:700}
+.rsvp-btns .rsvp-yes{background:var(--good);color:#fff}
+.rsvp-btns .rsvp-no{background:var(--bad);color:#fff}
+.rsvp-note{font-size:11.5px;color:var(--sub);margin-top:6px}
+</style>
+
+<!-- ============================================================
+     FIREBASE SDK + INITIALIZATION
+     Replace the YOUR_* values with your own Firebase config.
+     Get them from: Firebase Console > Project settings > Your apps > Web app
+     ============================================================ -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+  import { getFirestore, doc, setDoc, onSnapshot, collection } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzASyDLndmmlQpEuhz2lLLGlnReuhjaAD_3iH0",
+    authDomain: "rio-trip-2026.firebaseapp.com",
+    projectid: "rio-trip-2026",
+    storageBucket: "rio-trip-2026.firebasestorage.app",
+    messagingSenderId: "851973821059",
+    appId: "1:851973821059:web:cf714f9280b1bbafa901b6"
+  };
+
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  // Anonymous sign-in so friends can RSVP without creating accounts
+  signInAnonymously(auth).catch(err => console.error("Anon auth failed:", err.code));
+
+  // Expose to the page's non-module script
+  window.__fb = {
+    auth, db,
+    doc, setDoc, onSnapshot, collection,
+    onAuthStateChanged
+  };
+</script>
+</head>
+<body>
+<header class="hero"><div class="hero-inner">
+  <span class="badge">✈️ Viaje en grupo · Cidade Maravilhosa</span>
+  <h1>Río de Janeiro 🇧🇷</h1>
+  <p>Lunes 12 (llegada 5:00 a.m.) — domingo 18 de octubre · Desde Av. Prado Júnior 78, Apto 41, Copacabana</p>
+  <div class="hero-stats">
+    <div class="stat"><b>9</b>viajeros</div>
+    <div class="stat"><b>7</b>días</div>
+    <div class="stat"><b>🎂 Lun 12</b>llegada y cumpleaños</div>
+    <div class="stat"><b>🎉 Vie 16</b>noche de fiesta</div>
+  </div>
+</div></header>
+
+<div class="wrap">
+  <nav class="tabs" id="tabs"></nav>
+  <div id="days"></div>
+
+  <div class="info-block">
+    <h3>✅ ¿Cómo confirmar asistencia?</h3>
+    <p>Abre cualquier plan y al final vas a ver "¿Quién va?": escribe tu nombre y toca Voy / No voy — queda guardado para todo el grupo, en tiempo real. Para que tus acompañantes puedan marcar (no solo ver), quien comparta este link debe darles permiso de <b>Contributor/Editor</b> al compartir (no alcanza con "solo ver"). Si alguien abre el link y no puede guardar, puede seguir viendo todo con normalidad — solo pide que le ajusten el permiso.</p>
+  </div>
+
+  <div class="info-block">
+    <h3>🛶 Ilha Grande vs. Arraial do Cabo — ¿cuál conviene?</h3>
+    <p>Se priorizó <b>Ilha Grande / Angra dos Reis</b> porque el traslado desde Copacabana es más corto (~2h30 vs. ~3h a Arraial), lo que deja más horas reales de playa y paseo en lancha dentro del mismo día. El costo por persona es similar (R$300–380). Arraial do Cabo ("el Caribe brasileño") tiene aguas aún más turquesas y vale la pena si en el futuro se organiza un viaje de 2 días con noche allá, pero para un day-trip con 9 personas, Ilha Grande es más eficiente en tiempo y logística.</p>
+  </div>
+
+  <div class="info-block">
+    <h3>🧳 Requisitos generales para todo el viaje</h3>
+    <ul class="reqs">
+      <li>Documento de identidad/pasaporte vigente (llevar copia digital y física).</li>
+      <li>Reservar con anticipación: Cristo Redentor, Pão de Açúcar, AquaRio e Ilha Grande tienen cupos limitados, sobre todo en temporada alta.</li>
+      <li>Efectivo en reales (billetes chicos) para transporte informal, propinas y puestos callejeros; el resto se paga con tarjeta o Pix.</li>
+      <li>Apps Uber/99 instaladas — moverse en grupo de 9 implica pedir 2–3 autos a la vez.</li>
+      <li>Seguro de viaje con cobertura de actividades de aventura (obligatorio de hecho para ala delta y recomendable para SUP/trekking).</li>
+      <li>Protector solar, gorra, calzado cómodo y ropa de baño — casi todos los días combinan playa/naturaleza con caminatas.</li>
+      <li>Precaución estándar de gran ciudad: no exhibir celulares/joyas de noche, evitar caminar solo en zonas poco iluminadas (Centro, Saúde, subidas a favelas), y usar siempre transporte autorizado para volver de noche.</li>
+    </ul>
+  </div>
+
+  <footer class="note">Precios aproximados en BRL (oct. 2026), por persona, con su equivalente en COP entre paréntesis (tasa ≈ 1 BRL = 730 COP) — la tasa real fluctúa, confirmar antes de reservar. App generada para uso interno del grupo.</footer>
+</div>
+
+<div class="overlay" id="overlay"><div class="modal" id="modal"></div></div>
+
+<script>
+const PPL = 9;
+const dias = [
+{ key:"d2", tab:"Lun 12", tabsub:"🎂 Llegada", title:"Lunes 12 de octubre — Llegada y cumpleaños 🎂", note:"Llegan a las 5:00 a.m. — día tranquilo para instalarse, con la cena de cumpleaños y Pedra do Sal (roda de samba, tradición de todos los lunes) en la noche.",
+  planes:[
+    {nombre:"Llegada y check-in", hora:"05:00 – 10:00", desc:"Aterrizaje, traslado al hospedaje y descanso corto antes de salir a caminar — con vuelo nocturno de por medio conviene no forzar planes exigentes esta mañana.", transporte:"Taxi/Uber aeropuerto → Copacabana, 35–45 min (Galeão) o 20–25 min (Santos Dumont) — pedir 3 autos para el grupo", tags:["Día de llegada","Sin apuro"],
+      budget:[["Taxi/Uber aeropuerto (3 autos)","≈ R$ 60 c/u"]],
+      pros:["Nadie llega agotado a una actividad exigente","Tiempo de sobra para ducharse y organizar equipaje"], cons:["Se pierde la mañana como tiempo productivo de turismo"],
+      axes:["Seguridad: alta","Tiempo: 5h","Costo: bajo"], reqs:["Confirmar con antelación el punto de recogida en el aeropuerto para 9 personas y equipaje."]},
+    {nombre:"Forte de Copacabana + Mirante do Leme", hora:"11:30 – 14:00", desc:"Primer contacto suave con la ciudad: el fuerte histórico con vistas espectaculares y una caminata corta hasta el mirador del Leme.", transporte:"A pie desde el hospedaje, 10–15 min", tags:["Bajo costo","Caminata","Relajado"],
+      budget:[["Entrada Forte de Copacabana","R$ 6"],["Museo Histórico do Exército","incluido"],["Almuerzo liviano","≈ R$ 40"]],
+      pros:["Costo casi nulo","A pie, sin traslados","Buen ritmo para el primer día tras el vuelo"], cons:["Mejor evitarlo si el grupo prefiere directamente dormir la mañana"],
+      axes:["Seguridad: alta","Tiempo: 2.5h","Costo: bajo"], reqs:["Llevar identificación para el ingreso al fuerte (área militar)."]},
+    {nombre:"🎉 Cena de cumpleaños — Marius Degustare", hora:"20:00 – 22:00", desc:"Restaurante buffet de mariscos y churrasco frente al mar en Copacabana, ideal para grupo de 9 con ambiente festivo.", transporte:"A pie desde el hospedaje, 5–8 min", tags:["Cumpleaños","Reservar mesa"],
+      budget:[["Buffet + bebidas por persona","≈ R$ 200"]],
+      pros:["A pie, sin necesidad de transporte","Ambiente especial para la ocasión","Vista al mar"], cons:["Más caro que el resto de las cenas del viaje","Reservar mesa para 9 con antelación"],
+      axes:["Seguridad: alta","Tiempo: 2h","Costo: alto"], reqs:["Reserva anticipada para grupo de 9; avisar si es cumpleaños (suelen traer una sorpresa)."]},
+    {nombre:"Pedra do Sal — roda de samba", hora:"22:00 – 00:30", desc:"La cuna del samba carioca. Rueda de samba gratuita al aire libre, todos los lunes desde las 19h, en el barrio Saúde.", transporte:"Uber/taxi Copacabana → Saúde, 25–30 min", tags:["Gratis","Solo lunes y viernes"],
+      budget:[["Entrada","gratis"],["Uber compartido (3 autos)","≈ R$ 15 c/u"],["Cerveza/comida callejera","≈ R$ 25"]],
+      pros:["Entrada gratuita","Tradición cultural auténtica y única de los lunes","Cierre perfecto para el cumpleaños"], cons:["Zona poco iluminada de noche — no volver caminando","Cuidar pertenencias en la multitud","Llegan cansados del vuelo — se puede acortar la noche si el grupo lo prefiere"],
+      axes:["Seguridad: media (ir en grupo/taxi)","Tiempo: 2.5h","Costo: bajo"], reqs:["Volver siempre en Uber/taxi autorizado, no caminar por el Centro de noche."]}
+  ]},
+{ key:"d3", tab:"Mar 13", tabsub:"Pão de Açúcar", title:"Martes 13 de octubre", note:"Pão de Açúcar por la mañana y recorrido cultural (MAM, MAR y biblioteca) por la tarde — todo en la misma ruta hacia el Centro.",
+  planes:[
+    {nombre:"Pão de Açúcar (bondinho)", hora:"08:00 – 11:00", desc:"Teleférico en dos tramos hasta la cima con la mejor vista de la Bahía de Guanabara.", transporte:"Uber Copacabana → Urca, 15–20 min", tags:["Imperdible","Comprar online"],
+      budget:[["Entrada bondinho (ida/vuelta)","≈ R$ 150"],["Uber compartido (3 autos)","≈ R$ 10"]],
+      pros:["Corto traslado desde el hospedaje","Vista panorámica única","Poco tiempo requerido"], cons:["Colas si no se compra online","El tramo superior cierra con viento fuerte"],
+      axes:["Seguridad: alta","Tiempo: 3h","Costo: medio"], reqs:["Comprar entrada con antelación por la web oficial."]},
+    {nombre:"MAM + MAR + Biblioteca Real Gabinete", hora:"14:00 – 18:00", desc:"Recorrido cultural de bajo costo: Museo de Arte Moderna (Parque do Flamengo), Museu de Arte do Rio y la icónica biblioteca portuguesa, todos sobre la misma ruta de regreso desde Urca.", transporte:"Uber Urca → MAM 15 min · caminando MAM → MAR/Centro 10–15 min", tags:["Bajo costo","Interior/sombra"],
+      budget:[["Entrada MAM","≈ R$ 20 (gratis algunos días)"],["Entrada MAR","≈ R$ 20 (gratis mar/jue en tarde)"],["Biblioteca Real Gabinete","R$ 10"],["Uber tramo Urca→MAM","≈ R$ 8"]],
+      pros:["Tres atracciones sobre la misma ruta, sin traslados largos","Varios museos tienen entrada gratuita en franjas horarias","Alternativa de interior si llueve"], cons:["Horario de cierre temprano (17–18h)","Verificar día/horario gratuito antes de ir"],
+      axes:["Seguridad: alta","Tiempo: 4h","Costo: bajo"], reqs:["Confirmar horario de la Real Gabinete (suele cerrar 17h) antes de salir."]}
+  ]},
+{ key:"d4", tab:"Mié 14", tabsub:"Ilha Grande", title:"Miércoles 14 de octubre", note:"Día completo fuera de la ciudad — salida muy temprana, regreso de noche.",
+  planes:[
+    {nombre:"Angra dos Reis + Ilha Grande (paseo en escuna)", hora:"06:30 – 20:30", desc:"Traslado en van hasta Conceição de Jacareí/Angra, cruce en lancha o escuna por las islas de la bahía con paradas para nadar, almuerzo incluido y regreso al hospedaje.", transporte:"Van puerta a puerta, ~2h30 cada tramo; paseo en lancha ~2h", tags:["Imperdible","Día completo","Reservar antes"],
+      budget:[["Tour todo incluido (van+lancha+almuerzo)","≈ R$ 350"]],
+      pros:["Aguas cristalinas y playas prístinas","Almuerzo incluido, un solo pago","Un único día fuera libera el resto de la semana"], cons:["Jornada muy larga (14h) — llegan cansados","Depende del clima/estado del mar","Comparado con Arraial do Cabo, similar costo pero menos traslado (ver nota abajo)"],
+      axes:["Seguridad: alta (operador autorizado)","Tiempo: 14h","Costo: medio-alto"], reqs:["Reservar con al menos una semana de antelación (grupos de 9 llenan la van).","Llevar protector solar, gorra, cambio de ropa y algo de efectivo para gastos en la isla."]}
+  ]},
+{ key:"d5", tab:"Jue 15", tabsub:"Cristo & Tijuca", title:"Jueves 15 de octubre", note:"Cristo Redentor y los miradores del Parque Nacional da Tijuca en el mismo día — ambos se acceden por la misma zona de montaña, así que se ahorra un traslado completo.",
+  planes:[
+    {nombre:"Cristo Redentor (van oficial)", hora:"08:30 – 12:00", desc:"El ícono de Río. Van oficial que sale directo desde Copacabana, sube al Corcovado y da tiempo libre arriba.", transporte:"Van oficial puerta a puerta desde Copacabana, ~30–40 min de subida", tags:["Imperdible","Reservar antes"],
+      budget:[["Van oficial ida/vuelta + entrada","R$ 132"]],
+      pros:["Transporte incluido en el ticket","Vista de 360° de la ciudad","Se combina con Tijuca el mismo día, ahorrando un viaje aparte"], cons:["Debe reservarse con anticipación (cupos limitados)","Niebla puede tapar la vista según el día"],
+      axes:["Seguridad: alta","Tiempo: 3.5h","Costo: medio"], reqs:["Comprar entrada online con día/hora fija; llegar 20 min antes del horario de embarque."]},
+    {nombre:"Parque Nacional da Tijuca (Vista Chinesa, Mesa do Imperador, Cascatinha)", hora:"13:00 – 18:00", desc:"El bosque urbano más grande del mundo. Recorrido corto entre miradores y cascadas, en la misma zona de montaña donde ya están tras bajar del Corcovado.", transporte:"Uber/van desde Cosme Velho/Paineiras → Alto da Boa Vista, 15–20 min (mucho más corto que ir desde Copacabana)", tags:["Miradores gratis","Naturaleza","Bajo costo"],
+      budget:[["Entrada al parque","gratis"],["Uber compartido (3 autos)","≈ R$ 20"],["Guía local opcional (grupo)","≈ R$ 90 total ÷9"]],
+      pros:["Entrada y miradores completamente gratuitos","Traslado corto por estar en la misma zona que el Cristo","Buen ejercicio al aire libre"], cons:["Transporte público es limitado — conviene ir en auto/tour","Puede llover en el bosque (clima cambiante)"],
+      axes:["Seguridad: alta","Tiempo: 5h","Costo: bajo"], reqs:["Calzado de trekking, agua y repelente de mosquitos."]},
+    {nombre:"Tarde libre / descanso", hora:"18:30 en adelante", desc:"Cena liviana cerca del hospedaje y descanso antes del viernes de museos y fiesta.", transporte:"A pie", tags:["Gratis","Descanso"],
+      budget:[["Sin costo fijo","—"]], pros:["Recuperar energía"], cons:[],
+      axes:["Seguridad: alta","Tiempo: libre","Costo: gratis"], reqs:[]}
+  ]},
+{ key:"d6", tab:"Vie 16", tabsub:"🎉 Fiesta", title:"Viernes 16 de octubre", note:"Mañana en el Centro (AquaRio, Colombo y Maracaná) y noche de fiesta en Vidigal, cerca del hospedaje.",
+  planes:[
+    {nombre:"AquaRio", hora:"10:00 – 12:00", desc:"El acuario marino más grande de Sudamérica, en Praça Mauá.", transporte:"Uber Copacabana → Praça Mauá, 25–30 min", tags:["Aire acondicionado","Reservar online"],
+      budget:[["Entrada","≈ R$ 110"],["Uber compartido (3 autos)","≈ R$ 13"]],
+      pros:["Ideal si hace mucho calor","Cerca de Colombo y Maracaná (misma zona)"], cons:["Puede haber fila si no se compra online","Entrada no es de las más económicas"],
+      axes:["Seguridad: alta","Tiempo: 2h","Costo: medio"], reqs:["Comprar entrada online con horario asignado."]},
+    {nombre:"Confeitaria Colombo", hora:"12:15 – 13:15", desc:"La histórica pastelería del Centro de Río, famosa por sus tortas y salón art nouveau.", transporte:"A pie desde AquaRio, 10–15 min", tags:["Icónico","Bajo costo"],
+      budget:[["Café + dulce","≈ R$ 35"]], pros:["Muy bajo costo","Parada corta entre AquaRio y Maracaná"], cons:["Suele estar lleno al mediodía"],
+      axes:["Seguridad: alta","Tiempo: 1h","Costo: bajo"], reqs:[]},
+    {nombre:"Estádio do Maracanã (tour)", hora:"14:00 – 15:30", desc:"Recorrido guiado por el estadio mítico del fútbol brasileño: vestuarios, campo y museo.", transporte:"Uber Centro → Maracanã, 15–20 min", tags:["Historia","Cierra temprano"],
+      budget:[["Entrada tour guiado","≈ R$ 80"],["Uber compartido (3 autos)","≈ R$ 10"]], pros:["Corta duración","Poco traslado desde el Centro"], cons:["Verificar último horario de tour del día"],
+      axes:["Seguridad: alta","Tiempo: 1.5h","Costo: medio"], reqs:["Confirmar horario de tours ese día (puede variar por eventos)."]},
+    {nombre:"🎉 Noche de fiesta — Bosque Bar / Mirante Rocinha (Vidigal)", hora:"22:00 – 02:00", desc:"Bares con vista panorámica nocturna sobre Ipanema/Leblon, en el mirador de Vidigal — la zona de fiesta con mejor relación cercanía-ambiente respecto al hospedaje.", transporte:"Uber Copacabana → Vidigal, 20–25 min", tags:["Fiesta","Ir en Uber, no caminar"],
+      budget:[["Entrada/cover","≈ R$ 30"],["Consumo bebidas","≈ R$ 60"],["Uber compartido ida/vuelta (3 autos)","≈ R$ 25"]],
+      pros:["Vista nocturna espectacular de la ciudad","Ambiente joven, buena música","De las zonas de fiesta, la más cercana al hospedaje"], cons:["Acceso por calles empinadas de favela — ir siempre en auto autorizado","No caminar de noche en la zona"],
+      axes:["Seguridad: media (solo con transporte autorizado)","Tiempo: 4h","Costo: medio"], reqs:["Ir y volver únicamente en Uber/99 o taxi, nunca a pie de noche."]}
+  ]},
+{ key:"d7", tab:"Sáb 17", tabsub:"Paddle & Asa delta", title:"Sábado 17 de octubre", note:"Amanecer en el agua y vuelo en ala delta — dos actividades imperdibles, mañana intensa y tarde libre.",
+  planes:[
+    {nombre:"Paddle board al amanecer", hora:"05:45 – 07:30", desc:"Sesión guiada de stand up paddle en la Lagoa Rodrigo de Freitas o frente a Copacabana, con aguas calmas y sin viento.", transporte:"Uber a la Lagoa, 10–15 min (o a pie en Copacabana, 5 min)", tags:["Amanecer","Bajo costo","Poca gente"],
+      budget:[["Clase + alquiler de tabla","≈ R$ 100"],["Uber compartido (si Lagoa)","≈ R$ 8"]],
+      pros:["Aguas muy calmas a esa hora","Experiencia única y fotogénica","Precio accesible"], cons:["Hay que madrugar bastante","Depende del clima"],
+      axes:["Seguridad: alta","Tiempo: 1.5h","Costo: bajo"], reqs:["Reservar la clase el día anterior; llevar ropa de baño y toalla."]},
+    {nombre:"⚠️ Ala delta — Pedra Bonita, São Conrado", hora:"10:00 – 13:00", desc:"Vuelo doble con instructor certificado CBVL, despegue desde la Pedra Bonita y aterrizaje en la playa de São Conrado.", transporte:"Traslado incluido desde el club, o Uber 20–25 min", tags:["Aventura","Depende del clima","Riesgo"],
+      budget:[["Vuelo doble con instructor + seguro","≈ R$ 900"]],
+      pros:["Vistas aéreas espectaculares de toda la zona sur","No requiere experiencia previa"], cons:["Es una actividad de riesgo real: hubo accidentes fatales reportados en Río en 2026 — elegir siempre un club certificado (CBVL) y aceptar volar solo si las condiciones de viento son buenas","Depende 100% del clima, puede suspenderse el mismo día","Es el gasto más alto del viaje"],
+      axes:["Seguridad: cuidado — actividad de riesgo","Tiempo: 3h (vuelo real ~15-20 min)","Costo: alto"], reqs:["Reservar con operador certificado por la Confederação Brasileira de Voo Livre (CBVL).","Firmar exención de responsabilidad; llevar calzado cerrado y ropa cómoda.","Quien prefiera no volar puede quedarse observando en la playa de São Conrado sin costo."]},
+    {nombre:"Tarde libre", hora:"14:00 en adelante", desc:"Descanso, compras o playa antes de la última jornada.", transporte:"—", tags:["Gratis"],
+      budget:[["Sin costo fijo","—"]], pros:["Día de descanso tras dos actividades intensas"], cons:[], axes:["Seguridad: alta","Tiempo: libre","Costo: gratis"], reqs:[]}
+  ]},
+{ key:"d8", tab:"Dom 18", tabsub:"🔀 Variado", title:"Domingo 18 de octubre — Plan variado", note:"Día de salida: se ofrece un mosaico de mini-planes de medio día para armar a gusto de cada quien antes del vuelo.",
+  planes:[
+    {nombre:"🔀 Plan variado — elige tu mañana", hora:"08:00 – 13:00", desc:"Día de baja concurrencia ideal para mini-planes independientes según el horario del vuelo de cada persona.", transporte:"Ver cada mini-plan", tags:["Flexible","Día de salida"],
+      variedad:[
+        "🥊 Clase de Muay Thai — BTT Lagoa (Leblon), acepta extranjeros/principiantes, 08:00–09:00. Uber 10–15 min. ≈ R$ 100 pp. Reservar por Instagram/WhatsApp un día antes; llevar ropa deportiva.",
+        "🏘️ Tour comunitario Favela Santa Marta — 10:00–12:00, con guía local autorizado (no ir por cuenta propia). Uber a Botafogo 15 min. ≈ R$ 80 pp.",
+        "🧺 Feira Hippie de Ipanema — solo domingos, artesanías y música en vivo, 10:00–13:00. Uber/caminata corta. Gratis entrar.",
+        "🏖️ Última tarde de playa en Copacabana + almuerzo liviano cerca del hospedaje antes de ir al aeropuerto."
+      ],
+      budget:[["Muay Thai (opcional)","≈ R$ 100"],["Favela tour (opcional)","≈ R$ 80"],["Feira Hippie","gratis"],["Traslados varios","≈ R$ 20–30"]],
+      pros:["Máxima flexibilidad para el último día","Todas las opciones son de bajo costo","Se adapta a distintos horarios de vuelo"], cons:["Requiere coordinar quién hace qué mini-plan","El tour de favela debe ser siempre guiado"],
+      axes:["Seguridad: alta (favela solo con guía)","Tiempo: medio día","Costo: bajo"], reqs:["Reservar Muay Thai con antelación.","Contratar solo guías locales autorizados para la favela.","Dejar equipaje listo/checkout antes de salir."]}
+  ]}
+];
+
+const tabsEl = document.getElementById('tabs');
+const daysEl = document.getElementById('days');
+
+dias.forEach((d,i)=>{
+  const t = document.createElement('button');
+  t.className = 'tab'+(i===0?' active':'');
+  t.innerHTML = d.tab+'<small>'+d.tabsub+'</small>';
+  t.onclick = ()=>showDay(i);
+  tabsEl.appendChild(t);
+
+  const s = document.createElement('section');
+  s.className = 'day'+(i===0?' active':'');
+  s.id = d.key;
+  let flag = '';
+  if(d.title.includes('cumpleaños') || d.title.includes('Cumpleaños')) flag = '<span class="flag cumple">🎂 Llegada y cumpleaños</span>';
+  if(d.tabsub.includes('Fiesta')) flag = '<span class="flag fiesta">🎉 Noche de fiesta</span>';
+  if(d.tabsub.includes('Variado')) flag = '<span class="flag variado">🔀 Plan variado</span>';
+  let html = '<div class="daytitle"><h2>'+d.title+'</h2>'+flag+'</div><p class="daynote">'+d.note+'</p>';
+  d.planes.forEach((p, pi)=>{
+    html += '<div class="card" onclick="openModal(\''+d.key+'\','+pi+')">';
+    html += '<div class="card-top"><div><div class="time">'+p.hora+'</div><h3>'+p.nombre+'</h3></div>';
+    html += '<span class="pricepill">Ver presupuesto</span></div>';
+    html += '<p class="desc">'+p.desc+'</p>';
+    if(p.transporte && p.transporte!=='—') html += '<div class="transit">🚗 '+p.transporte+'</div>';
+    if(p.variedad){
+      html += '<div class="variedad-mini">'+p.variedad.map(v=>'<div>• '+v+'</div>').join('')+'</div>';
+    }
+    html += '<div class="tags">'+p.tags.map(x=>'<span class="tag">'+x+'</span>').join('')+'</div>';
+    html += '</div>';
+  });
+  s.innerHTML = html;
+  daysEl.appendChild(s);
+});
+
+function showDay(i){
+  document.querySelectorAll('.tab').forEach((t,idx)=>t.classList.toggle('active', idx===i));
+  document.querySelectorAll('section.day').forEach((s,idx)=>s.classList.toggle('active', idx===i));
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+const BRL_TO_COP = 730;
+function copFmt(n){ return Math.round(n).toLocaleString('es-CO'); }
+function addCOP(str){
+  return str.replace(/R\$\s*([\d]+(?:[.,]\d+)?)/g, (m,num)=>{
+    const n = parseFloat(num.replace(',','.'));
+    return m + ' <span style="color:var(--sub);font-weight:400">(~$'+copFmt(n*BRL_TO_COP)+' COP)</span>';
+  });
+}
+
+function openModal(dayKey, idx){
+  const d = dias.find(x=>x.key===dayKey);
+  const p = d.planes[idx];
+  const m = document.getElementById('modal');
+  let rows = p.budget.map(b=>'<tr><td>'+b[0]+'</td><td>'+addCOP(b[1])+'</td></tr>').join('');
+  let totalLine = '';
+  const nums = p.budget.map(b=>{
+    const n = parseFloat((b[1]||'').replace(/[^\d.,]/g,'').replace(',','.'));
+    return isNaN(n)?0:n;
+  });
+  const sum = nums.reduce((a,b)=>a+b,0);
+  if(sum>0){ totalLine = '<tr class="budget-total"><td>Total aprox. por persona</td><td>≈ R$ '+Math.round(sum)+' <span style="display:block;font-weight:700;font-size:12.5px;color:var(--sub)">(~$'+copFmt(sum*BRL_TO_COP)+' COP)</span></td></tr>'; }
+
+  let html = '<button class="close" onclick="closeModal()">✕</button>';
+  html += '<h3>'+p.nombre+'</h3><span class="time">'+p.hora+'</span>';
+  html += '<p style="font-size:14px;color:var(--sub)">'+p.desc+'</p>';
+  if(p.transporte && p.transporte!=='—') html += '<div class="transit">🚗 '+p.transporte+'</div>';
+  html += '<div class="axes">'+p.axes.map(a=>'<span class="axis">'+a+'</span>').join('')+'</div>';
+
+  html += '<div class="section-h">Presupuesto por persona (grupo de '+PPL+')</div>';
+  html += '<table class="budget-table">'+rows+totalLine+'</table>';
+
+  html += '<div class="section-h">Ventajas y desventajas</div>';
+  html += '<div class="proscons">';
+  html += '<div class="pc-box pro"><b>A favor</b><ul>'+p.pros.map(x=>'<li>'+x+'</li>').join('')+'</ul></div>';
+  html += '<div class="pc-box con"><b>A tener en cuenta</b><ul>'+p.cons.map(x=>'<li>'+x+'</li>').join('')+'</ul></div>';
+  html += '</div>';
+
+  if(p.reqs && p.reqs.length){
+    html += '<div class="section-h">Requisitos</div><ul class="reqs">'+p.reqs.map(r=>'<li>'+r+'</li>').join('')+'</ul>';
+  }
+
+  const planId = dayKey+'-'+idx;
+  html += '<div class="section-h">¿Quién va?</div>';
+  html += '<div class="rsvp-list" id="rsvpList"><span style="color:var(--sub);font-size:13px">Cargando…</span></div>';
+  html += '<div class="rsvp-form"><input id="rsvpName" placeholder="Tu nombre" maxlength="30">';
+  html += '<div class="rsvp-btns"><button class="rsvp-yes" onclick="submitRSVP(\''+planId+'\',true)">✅ Voy</button><button class="rsvp-no" onclick="submitRSVP(\''+planId+'\',false)">❌ No voy</button></div></div>';
+  html += '<div class="rsvp-note" id="rsvpNote"></div>';
+
+  m.innerHTML = html;
+  document.getElementById('overlay').classList.add('show');
+  loadRSVP(planId);
+}
+
+function closeModal(){
+  document.getElementById('overlay').classList.remove('show');
+  if(unsubRSVP){ unsubRSVP(); unsubRSVP = null; }
+}
+document.getElementById('overlay').addEventListener('click', e=>{ if(e.target.id==='overlay') closeModal(); });
+
+/* ============================================================
+   RSVP via Firebase Firestore (anonymous auth)
+   Data path: rsvp/{planId}/entries/{slug(name)}
+   ============================================================ */
+let unsubRSVP = null;
+let currentUid = null;
+
+function slugify(name){
+  return name.trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/(^-+|-+$)/g,'') || ('anon'+Date.now());
+}
+
+function renderRSVP(entries){
+  const list = document.getElementById('rsvpList');
+  if(!list) return;
+  if(!entries.length){ list.innerHTML = '<span style="color:var(--sub);font-size:13px">Aún nadie confirmó.</span>'; return; }
+  entries.sort((a,b)=> (b.going-a.going) || a.name.localeCompare(b.name));
+  list.innerHTML = entries.map(e=>'<span class="rsvp-chip '+(e.going?'yes':'no')+'">'+(e.going?'✅':'❌')+' '+e.name+'</span>').join('');
+}
+
+function waitForFb(){
+  return new Promise(res=>{
+    if(window.__fb){ res(window.__fb); return; }
+    const iv = setInterval(()=>{ if(window.__fb){ clearInterval(iv); res(window.__fb); } }, 50);
+  });
+}
+
+async function loadRSVP(planId){
+  const note = document.getElementById('rsvpNote');
+  if(unsubRSVP){ unsubRSVP(); unsubRSVP = null; }
+  const fb = await waitForFb();
+  if(!fb){
+    document.getElementById('rsvpList').innerHTML = '<span style="color:var(--sub);font-size:13px">No disponible.</span>';
+    return;
+  }
+  fb.onAuthStateChanged(fb.auth, (user)=>{ if(user) currentUid = user.uid; });
+  const colRef = fb.collection(fb.db, 'rsvp', planId, 'entries');
+  unsubRSVP = fb.onSnapshot(colRef,
+    snap => renderRSVP(snap.docs.map(d=>d.data())),
+    err => { if(note) note.textContent = 'Sync error (' + err.code + ').'; }
+  );
+}
+
+async function submitRSVP(planId, going){
+  const input = document.getElementById('rsvpName');
+  const note = document.getElementById('rsvpNote');
+  const name = (input.value||'').trim();
+  if(!name){ note.textContent = 'Write your name first.'; note.style.color = 'var(--bad)'; return; }
+  const fb = await waitForFb();
+  if(!fb || !currentUid){ note.textContent = 'Not ready yet, try again.'; return; }
+  note.style.color = 'var(--sub)';
+  note.textContent = 'Saving…';
+  try{
+    const docRef = fb.doc(fb.db, 'rsvp', planId, 'entries', slugify(name));
+    await fb.setDoc(docRef, { name:name, going:!!going, uid:currentUid, ts:Date.now() });
+    note.textContent = 'Saved ✓ — visible to the whole group.';
+  }catch(e){
+    if(e.code==='permission-denied'){
+      note.textContent = 'Read-only view — ask for Contributor/Editor permission to confirm.';
+    } else {
+      note.textContent = 'Could not save (' + e.code + ').';
+    }
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "hosting": {
+    "public": ".",
+    "site": "me-rio-de-janeiro",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
