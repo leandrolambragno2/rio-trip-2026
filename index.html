@@ -115,15 +115,14 @@ footer.note{font-size:12px;color:var(--sub);text-align:center;margin-top:20px}
   import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
   import { getFirestore, doc, setDoc, onSnapshot, collection } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-  const firebaseConfig = {
-    apiKey: "AIzASyDLndmmlQpEuhz2lLLGlnReuhjaAD_3iH0",
-    authDomain: "rio-trip-2026.firebaseapp.com",
-    projectId: "rio-trip-2026",
-    storageBucket: "rio-trip-2026.firebasestorage.app",
-    messagingSenderId: "851973821059",
-    appId: "1:851973821059:web:cf714f9280b1bbafa901b6"
-  };
-
+const firebaseConfig = {
+  apiKey: "AIzaSyDLNdmmlQpEuhz2lLQgLnReuhjaAD_3iH0",
+  authDomain: "rio-trip-2026.firebaseapp.com",
+  projectId: "rio-trip-2026",
+  storageBucket: "rio-trip-2026.firebasestorage.app",
+  messagingSenderId: "851973821059",
+  appId: "1:851973821059:web:cf714f9280b1bbafa901b6"
+};
 
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
