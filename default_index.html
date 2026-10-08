@@ -156,29 +156,6 @@ const firebaseConfig = {
   <nav class="tabs" id="tabs"></nav>
   <div id="days"></div>
 
-  <div class="info-block">
-    <h3>✅ ¿Cómo confirmar asistencia?</h3>
-    <p>Abre cualquier plan y al final vas a ver "¿Quién va?": escribe tu nombre y toca Voy / No voy — queda guardado para todo el grupo, en tiempo real. Para que tus acompañantes puedan marcar (no solo ver), quien comparta este link debe darles permiso de <b>Contributor/Editor</b> al compartir (no alcanza con "solo ver"). Si alguien abre el link y no puede guardar, puede seguir viendo todo con normalidad — solo pide que le ajusten el permiso.</p>
-  </div>
-
-  <div class="info-block">
-    <h3>🛶 Ilha Grande vs. Arraial do Cabo — ¿cuál conviene?</h3>
-    <p>Se priorizó <b>Ilha Grande / Angra dos Reis</b> porque el traslado desde Copacabana es más corto (~2h30 vs. ~3h a Arraial), lo que deja más horas reales de playa y paseo en lancha dentro del mismo día. El costo por persona es similar (R$300–380). Arraial do Cabo ("el Caribe brasileño") tiene aguas aún más turquesas y vale la pena si en el futuro se organiza un viaje de 2 días con noche allá, pero para un day-trip con 9 personas, Ilha Grande es más eficiente en tiempo y logística.</p>
-  </div>
-
-  <div class="info-block">
-    <h3>🧳 Requisitos generales para todo el viaje</h3>
-    <ul class="reqs">
-      <li>Documento de identidad/pasaporte vigente (llevar copia digital y física).</li>
-      <li>Reservar con anticipación: Cristo Redentor, Pão de Açúcar, AquaRio e Ilha Grande tienen cupos limitados, sobre todo en temporada alta.</li>
-      <li>Efectivo en reales (billetes chicos) para transporte informal, propinas y puestos callejeros; el resto se paga con tarjeta o Pix.</li>
-      <li>Apps Uber/99 instaladas — moverse en grupo de 9 implica pedir 2–3 autos a la vez.</li>
-      <li>Seguro de viaje con cobertura de actividades de aventura (obligatorio de hecho para ala delta y recomendable para SUP/trekking).</li>
-      <li>Protector solar, gorra, calzado cómodo y ropa de baño — casi todos los días combinan playa/naturaleza con caminatas.</li>
-      <li>Precaución estándar de gran ciudad: no exhibir celulares/joyas de noche, evitar caminar solo en zonas poco iluminadas (Centro, Saúde, subidas a favelas), y usar siempre transporte autorizado para volver de noche.</li>
-    </ul>
-  </div>
-
   <footer class="note">Precios aproximados en BRL (oct. 2026), por persona, con su equivalente en COP entre paréntesis (tasa ≈ 1 BRL = 730 COP) — la tasa real fluctúa, confirmar antes de reservar. App generada para uso interno del grupo.</footer>
 </div>
 
@@ -187,115 +164,251 @@ const firebaseConfig = {
 <script>
 const PPL = 9;
 const dias = [
-{ key:"d2", tab:"Lun 12", tabsub:"🎂 Llegada", title:"Lunes 12 de octubre — Llegada y cumpleaños 🎂", note:"Llegan a las 5:00 a.m. — día tranquilo para instalarse, con la cena de cumpleaños y Pedra do Sal (roda de samba, tradición de todos los lunes) en la noche.",
+{ key:"d2", tab:"Lun 12", tabsub:"🎂 Llegada", title:"Lunes 12 de octubre — Llegada y cumpleaños 🎂", note:"Llegan a las 5:00 a.m. — día tranquilo para instalarse. El festejo de cumpleaños es un almuerzo tardío (15:30) y el día cierra con Pedra do Sal, sin cena después.",
   planes:[
-    {nombre:"Llegada y check-in", hora:"05:00 – 10:00", desc:"Aterrizaje, traslado al hospedaje y descanso corto antes de salir a caminar — con vuelo nocturno de por medio conviene no forzar planes exigentes esta mañana.", transporte:"Taxi/Uber aeropuerto → Copacabana, 35–45 min (Galeão) o 20–25 min (Santos Dumont) — pedir 3 autos para el grupo", tags:["Día de llegada","Sin apuro"],
-      budget:[["Taxi/Uber aeropuerto (3 autos)","≈ R$ 60 c/u"]],
-      pros:["Nadie llega agotado a una actividad exigente","Tiempo de sobra para ducharse y organizar equipaje"], cons:["Se pierde la mañana como tiempo productivo de turismo"],
-      axes:["Seguridad: alta","Tiempo: 5h","Costo: bajo"], reqs:["Confirmar con antelación el punto de recogida en el aeropuerto para 9 personas y equipaje."]},
-    {nombre:"Forte de Copacabana + Mirante do Leme", hora:"11:30 – 14:00", desc:"Primer contacto suave con la ciudad: el fuerte histórico con vistas espectaculares y una caminata corta hasta el mirador del Leme.", transporte:"A pie desde el hospedaje, 10–15 min", tags:["Bajo costo","Caminata","Relajado"],
-      budget:[["Entrada Forte de Copacabana","R$ 6"],["Museo Histórico do Exército","incluido"],["Almuerzo liviano","≈ R$ 40"]],
-      pros:["Costo casi nulo","A pie, sin traslados","Buen ritmo para el primer día tras el vuelo"], cons:["Mejor evitarlo si el grupo prefiere directamente dormir la mañana"],
+    {nombre:"Llegada y check-in", hora:"05:00 – 10:00", desc:"Aterrizaje, traslado al hospedaje y descanso corto — con vuelo nocturno de por medio conviene no forzar planes exigentes esta mañana.", transporte:"Taxi/Uber aeropuerto → Copacabana, 35–45 min (Galeão) o 20–25 min (Santos Dumont) — pedir 3 autos", tags:["Llegada","Sin apuro"],
+      budget:[["Taxi/Uber aeropuerto (3 autos)","≈ R$ 60"]],
+      pros:["Nadie llega agotado a una actividad exigente","Tiempo de sobra para ducharse y organizar equipaje"], cons:["Se pierde la mañana como tiempo de turismo"],
+      axes:["Seguridad: alta","Tiempo: 5h","Costo: bajo"], reqs:["Confirmar el punto de recogida en el aeropuerto para 9 personas y equipaje."]},
+    {nombre:"Forte de Copacabana + Mirante do Leme", hora:"11:00 – 13:30", desc:"Primer contacto suave con la ciudad: el fuerte histórico con vistas espectaculares y una caminata corta al mirador del Leme — nada pesado antes del almuerzo de cumpleaños.", transporte:"A pie desde el hospedaje, 10–15 min", tags:["Bajo costo","Caminata","Relajado"],
+      budget:[["Entrada Forte de Copacabana","R$ 6"]],
+      pros:["Costo casi nulo","A pie, sin traslados","Buen ritmo para el primer día"], cons:["Mejor saltarlo si el grupo prefiere dormir toda la mañana"],
       axes:["Seguridad: alta","Tiempo: 2.5h","Costo: bajo"], reqs:["Llevar identificación para el ingreso al fuerte (área militar)."]},
-    {nombre:"🎉 Cena de cumpleaños — Marius Degustare", hora:"20:00 – 22:00", desc:"Restaurante buffet de mariscos y churrasco frente al mar en Copacabana, ideal para grupo de 9 con ambiente festivo.", transporte:"A pie desde el hospedaje, 5–8 min", tags:["Cumpleaños","Reservar mesa"],
-      budget:[["Buffet + bebidas por persona","≈ R$ 200"]],
-      pros:["A pie, sin necesidad de transporte","Ambiente especial para la ocasión","Vista al mar"], cons:["Más caro que el resto de las cenas del viaje","Reservar mesa para 9 con antelación"],
-      axes:["Seguridad: alta","Tiempo: 2h","Costo: alto"], reqs:["Reserva anticipada para grupo de 9; avisar si es cumpleaños (suelen traer una sorpresa)."]},
-    {nombre:"Pedra do Sal — roda de samba", hora:"22:00 – 00:30", desc:"La cuna del samba carioca. Rueda de samba gratuita al aire libre, todos los lunes desde las 19h, en el barrio Saúde.", transporte:"Uber/taxi Copacabana → Saúde, 25–30 min", tags:["Gratis","Solo lunes y viernes"],
-      budget:[["Entrada","gratis"],["Uber compartido (3 autos)","≈ R$ 15 c/u"],["Cerveza/comida callejera","≈ R$ 25"]],
-      pros:["Entrada gratuita","Tradición cultural auténtica y única de los lunes","Cierre perfecto para el cumpleaños"], cons:["Zona poco iluminada de noche — no volver caminando","Cuidar pertenencias en la multitud","Llegan cansados del vuelo — se puede acortar la noche si el grupo lo prefiere"],
+    {nombre:"🎉 Almuerzo de cumpleaños — Marius Degustare", hora:"15:30 – 17:30", desc:"Restaurante buffet de mariscos y churrasco frente al mar en Copacabana, ideal para grupo de 9 con ambiente festivo — almuerzo tardío para no chocar con Pedra do Sal en la noche.", transporte:"A pie desde el hospedaje, 5–8 min", tags:["Cumpleaños","Reservar mesa"],
+      budget:[["Buffet + bebidas por persona","≈ R$ 160"]],
+      pros:["A pie, sin transporte","Ambiente especial para la ocasión","Deja la noche libre para Pedra do Sal sin apuro"], cons:["Reservar mesa para 9 con antelación"],
+      axes:["Seguridad: alta","Tiempo: 2h","Costo: alto"], reqs:["Reserva anticipada para grupo de 9; avisar si es cumpleaños."]},
+    {nombre:"Pedra do Sal — roda de samba (cierre del día)", hora:"19:30 – 22:00", desc:"La cuna del samba carioca. Llegando a las 19:30 (apenas empieza) consiguen buen lugar antes de que se llene — después de las 21h es mucho más difícil moverse entre la multitud. Sin cena después, es el cierre de la noche.", transporte:"Uber/taxi Copacabana → Saúde, 25–30 min", tags:["Gratis","Solo lunes","Llegar temprano","Cierra el día"],
+      budget:[["Entrada","gratis"],["Uber compartido (3 autos)","≈ R$ 15"],["Cerveza/comida callejera","≈ R$ 25"]],
+      pros:["Entrada gratuita","Tradición única de los lunes","Llegar temprano = más fácil ubicarse y moverse"], cons:["Zona poco iluminada de noche — no volver caminando","Cuidar pertenencias en la multitud"],
       axes:["Seguridad: media (ir en grupo/taxi)","Tiempo: 2.5h","Costo: bajo"], reqs:["Volver siempre en Uber/taxi autorizado, no caminar por el Centro de noche."]}
   ]},
-{ key:"d3", tab:"Mar 13", tabsub:"Pão de Açúcar", title:"Martes 13 de octubre", note:"Pão de Açúcar por la mañana y recorrido cultural (MAM, MAR y biblioteca) por la tarde — todo en la misma ruta hacia el Centro.",
+{ key:"d3", tab:"Mar 13", tabsub:"Paddle & Pão de Açúcar", title:"Martes 13 de octubre", note:"Paddle board al amanecer (entre semana sale más barato que el fin de semana), Pão de Açúcar y una tarde de museos gratis-los-martes en Flamengo/Centro. Cierra con fiesta en Rio Scenarium.",
   planes:[
-    {nombre:"Pão de Açúcar (bondinho)", hora:"08:00 – 11:00", desc:"Teleférico en dos tramos hasta la cima con la mejor vista de la Bahía de Guanabara.", transporte:"Uber Copacabana → Urca, 15–20 min", tags:["Imperdible","Comprar online"],
-      budget:[["Entrada bondinho (ida/vuelta)","≈ R$ 150"],["Uber compartido (3 autos)","≈ R$ 10"]],
-      pros:["Corto traslado desde el hospedaje","Vista panorámica única","Poco tiempo requerido"], cons:["Colas si no se compra online","El tramo superior cierra con viento fuerte"],
-      axes:["Seguridad: alta","Tiempo: 3h","Costo: medio"], reqs:["Comprar entrada con antelación por la web oficial."]},
-    {nombre:"MAM + MAR + Biblioteca Real Gabinete", hora:"14:00 – 18:00", desc:"Recorrido cultural de bajo costo: Museo de Arte Moderna (Parque do Flamengo), Museu de Arte do Rio y la icónica biblioteca portuguesa, todos sobre la misma ruta de regreso desde Urca.", transporte:"Uber Urca → MAM 15 min · caminando MAM → MAR/Centro 10–15 min", tags:["Bajo costo","Interior/sombra"],
-      budget:[["Entrada MAM","≈ R$ 20 (gratis algunos días)"],["Entrada MAR","≈ R$ 20 (gratis mar/jue en tarde)"],["Biblioteca Real Gabinete","R$ 10"],["Uber tramo Urca→MAM","≈ R$ 8"]],
-      pros:["Tres atracciones sobre la misma ruta, sin traslados largos","Varios museos tienen entrada gratuita en franjas horarias","Alternativa de interior si llueve"], cons:["Horario de cierre temprano (17–18h)","Verificar día/horario gratuito antes de ir"],
-      axes:["Seguridad: alta","Tiempo: 4h","Costo: bajo"], reqs:["Confirmar horario de la Real Gabinete (suele cerrar 17h) antes de salir."]}
+    {nombre:"Paddle board al amanecer", hora:"05:30 – 07:00", desc:"Sesión guiada de SUP en Copacabana o la Lagoa, aguas calmas y sin viento. Entre semana el alquiler y las clases cuestan bastante menos que el fin de semana (menor demanda).", transporte:"A pie en Copacabana, 5 min · o Uber a la Lagoa, 10–15 min", tags:["Amanecer","Más barato entre semana"],
+      budget:[["Clase + alquiler de tabla","≈ R$ 90"]],
+      pros:["Más económico que hacerlo en sábado/domingo","Aguas calmas a esa hora","Experiencia fotogénica"], cons:["Hay que madrugar","Depende del clima"],
+      axes:["Seguridad: alta","Tiempo: 1.5h","Costo: bajo"], reqs:["Reservar la clase el día anterior; llevar ropa de baño y toalla."]},
+    {nombre:"Pão de Açúcar (bondinho)", hora:"08:30 – 11:00", desc:"Teleférico en dos tramos hasta la cima con la mejor vista de la Bahía de Guanabara. Alternativa: se puede hacer al atardecer en vez de la mañana para ver el sunset desde el Morro da Urca (la parada intermedia) — se prioriza la mañana para evitar nubosidad vespertina y filas, pero si el grupo prefiere el sunset, este bloque se puede intercambiar con el cultural de la tarde.", transporte:"Uber Copacabana → Urca, 15–20 min", tags:["Imperdible","Comprar online"],
+      budget:[["Entrada bondinho (ida/vuelta, online)","≈ R$ 120"],["Uber compartido (3 autos)","≈ R$ 10"]],
+      pros:["Corto traslado desde el hospedaje","Vista panorámica única","Comprando online sale ≈ 10% más barato que en taquilla"], cons:["Colas si no se compra online","El tramo superior cierra con viento fuerte"],
+      axes:["Seguridad: alta","Tiempo: 3h","Costo: medio"], reqs:["Comprar entrada con antelación por la web oficial del Bondinho."]},
+    {nombre:"Tarde cultural — gratis los martes", hora:"14:00 – 18:00", desc:"Ruta por museos que son gratuitos (o con descuento) los martes, todos sobre la misma dirección de regreso desde Urca hacia el Centro.", transporte:"Uber Urca → Flamengo, 15 min · luego tramos cortos caminando/Uber entre cada parada", tags:["Bajo costo","Gratis los martes"],
+      variedad:[
+        "MAM (Museu de Arte Moderna) — Parque do Flamengo, 14:00–14:45.",
+        "Futuros — Arte e Tecnologia — centro cultural de arte/tecnología en Flamengo, al lado del MAM, 14:50–15:30.",
+        "Museu da República (Palácio do Catete) — gratis los martes, 15:45–16:30.",
+        "MAR + Museu do Amanhã + CCBB — cluster de Praça Mauá/Candelária, Museu do Amanhã gratis los martes, 17:00–18:00."
+      ],
+      budget:[["MAM","≈ R$ 20"],["Futuros Arte e Tecnologia","≈ R$ 20"],["Museu da República","gratis (martes)"],["MAR","≈ R$ 20"],["Museu do Amanhã","gratis (martes)"],["CCBB","gratis"],["Ubers cortos entre paradas","≈ R$ 25"]],
+      pros:["Varios museos gratis por caer en martes","Ruta compacta, todo sobre la misma dirección","Alternativa de interior si llueve"], cons:["Ritmo exigente — 4 paradas en una tarde","Horario de cierre temprano (17–18h) en varios"],
+      axes:["Seguridad: alta","Tiempo: 4h","Costo: bajo"], reqs:["Real Gabinete NO se visita hoy (se movió al viernes); confirmar horarios de cada museo antes de salir."]},
+    {nombre:"🎉 Fiesta — Rio Scenarium (Lapa)", hora:"22:00 – 02:00", desc:"Ir: es el templo de la música en vivo carioca — tres pisos de un antiguo depósito de antigüedades, samba/choro en vivo, visualmente espectacular. Es el clásico imperdible de Lapa para una primera noche de fiesta.", transporte:"Uber Copacabana → Lapa, 20–25 min", tags:["Fiesta","Reservar mesa"],
+      budget:[["Entrada/cover","≈ R$ 50"],["Consumo bebidas","≈ R$ 60"],["Uber compartido ida/vuelta (3 autos)","≈ R$ 20"]],
+      pros:["Música en vivo de altísimo nivel","Ambiente único, muy fotogénico","Clásico que hay que tachar de la lista"], cons:["Se llena rápido — conviene reservar mesa","Volver siempre en Uber, no caminar por Lapa de noche"],
+      axes:["Seguridad: media (ir y volver en auto)","Tiempo: 4h","Costo: medio"], reqs:["Reservar mesa para 9 con anticipación (web o WhatsApp del local)."]}
   ]},
-{ key:"d4", tab:"Mié 14", tabsub:"Ilha Grande", title:"Miércoles 14 de octubre", note:"Día completo fuera de la ciudad — salida muy temprana, regreso de noche.",
+{ key:"d4", tab:"Mié 14", tabsub:"Barco: A o B", title:"Miércoles 14 de octubre — Elige el plan de barco", note:"Dos opciones de paseo en barco que no se pueden hacer el mismo día — el grupo vota cuál prefiere. Abran ambos tiles para comparar presupuesto y pros/contras antes de decidir.",
   planes:[
-    {nombre:"Angra dos Reis + Ilha Grande (paseo en escuna)", hora:"06:30 – 20:30", desc:"Traslado en van hasta Conceição de Jacareí/Angra, cruce en lancha o escuna por las islas de la bahía con paradas para nadar, almuerzo incluido y regreso al hospedaje.", transporte:"Van puerta a puerta, ~2h30 cada tramo; paseo en lancha ~2h", tags:["Imperdible","Día completo","Reservar antes"],
+    {nombre:"Opción A — Angra dos Reis + Ilha Grande (día completo)", hora:"06:30 – 20:30", desc:"Traslado en van hasta Angra/Conceição de Jacareí, cruce en lancha o escuna por las islas de la bahía con paradas para nadar, almuerzo incluido y regreso al hospedaje. Jornada larga (14h), pero ninguno de los dos días libera tanto tiempo en una sola salida — y son jóvenes, aguantan.", transporte:"Van puerta a puerta, ~2h30 cada tramo; paseo en lancha ~2h", tags:["Opción A","Día completo","Reservar antes"],
       budget:[["Tour todo incluido (van+lancha+almuerzo)","≈ R$ 350"]],
-      pros:["Aguas cristalinas y playas prístinas","Almuerzo incluido, un solo pago","Un único día fuera libera el resto de la semana"], cons:["Jornada muy larga (14h) — llegan cansados","Depende del clima/estado del mar","Comparado con Arraial do Cabo, similar costo pero menos traslado (ver nota abajo)"],
-      axes:["Seguridad: alta (operador autorizado)","Tiempo: 14h","Costo: medio-alto"], reqs:["Reservar con al menos una semana de antelación (grupos de 9 llenan la van).","Llevar protector solar, gorra, cambio de ropa y algo de efectivo para gastos en la isla."]}
+      pros:["Aguas cristalinas y playas prístinas de verdad","Almuerzo incluido, un solo pago","Experiencia más memorable de las dos opciones"], cons:["Jornada de 14h — llegan cansados","Depende del clima/estado del mar","Más caro que la Opción B"],
+      axes:["Seguridad: alta (operador autorizado)","Tiempo: 14h","Costo: medio-alto"], reqs:["Reservar con al menos una semana de antelación.","Llevar protector solar, gorra, cambio de ropa y efectivo para gastos en la isla."]},
+    {nombre:"Opción B — Lancha 5h por la Bahía de Guanabara + Kit Churrasco", excludeFromTotal:true, hora:"09:00 – 14:00 (o 14:30 – 19:30)", desc:"Paseo de 5 horas en lancha privada por la bahía (vistas de Pão de Açúcar, Niterói e islas cercanas), con la opción de contratar el Kit Churrasco a bordo (R$420, se reparte entre quienes lo pidan). El operador solo ofrece estos dos horarios fijos; el que no se use queda libre para el plan extra de abajo.", transporte:"Uber Copacabana → marina de salida, 15–20 min", tags:["Opción B","Medio día","Más barato"],
+      budget:[["Lancha 5h (grupo, dividido entre 9)","≈ R$ 220"],["Kit Churrasco (420 total, si lo piden, ÷9)","≈ R$ 47"]],
+      pros:["Medio día — queda la otra mitad libre","Más económico que la Opción A","El Kit Churrasco es una buena relación precio-grupo si deciden pedirlo"], cons:["No incluye las playas prístinas de Ilha Grande","Horario fijo (no flexible): 9:00–14:00 o 14:30–19:30"],
+      axes:["Seguridad: alta","Tiempo: 5h","Costo: bajo-medio"], reqs:["Confirmar con antelación el operador de la lancha, el horario elegido y si piden el Kit Churrasco (avisar con un día antes)."]},
+    {nombre:"Extra si eligen Opción B — Jardim Botânico", excludeFromTotal:true, hora:"09:00 – 11:00 (si toman la lancha de 14:30) o 15:00 – 17:00 (si toman la de 9:00)", desc:"Con la lancha de 5h se libera media mañana o media tarde — el Jardim Botânico es una visita tranquila y de bajo costo, perfecta para llenar ese hueco sin forzar el día.", transporte:"Uber Copacabana → Jardim Botânico, 15–20 min", tags:["Solo si Opción B","Bajo costo"],
+      budget:[["Entrada Jardim Botânico","≈ R$ 20"],["Uber compartido (3 autos)","≈ R$ 15"]],
+      pros:["Llena el tiempo libre que deja la Opción B sin agregar otro traslado largo","Bajo costo","Buen contraste tranquilo con el paseo en lancha"], cons:["No aplica si eligen la Opción A (no queda tiempo libre ese día)"],
+      axes:["Seguridad: alta","Tiempo: 2h","Costo: bajo"], reqs:[]},
+    {nombre:"🎉 Noche — Cervantes (Copacabana)", hora:"21:30 – 23:30", desc:"Ir: después de un día entero en el agua (cualquiera de las dos opciones), lo ideal es algo liviano y sin traslados — Cervantes es el boteco clásico de sándwiches de Copacabana, abierto hasta tarde, parada obligatoria de cualquier carioca trasnochado.", transporte:"A pie desde el hospedaje, 5 min", tags:["Bajo costo","Sin traslado"],
+      budget:[["Sándwich + cerveza","≈ R$ 45"]], pros:["A pie, cero logística","Clásico carioca de madrugada","Muy bajo costo"], cons:["No es una 'fiesta' como tal, es más informal"],
+      axes:["Seguridad: alta","Tiempo: 2h","Costo: bajo"], reqs:[]}
   ]},
-{ key:"d5", tab:"Jue 15", tabsub:"Cristo & Tijuca", title:"Jueves 15 de octubre", note:"Cristo Redentor y los miradores del Parque Nacional da Tijuca en el mismo día — ambos se acceden por la misma zona de montaña, así que se ahorra un traslado completo.",
+{ key:"d5", tab:"Jue 15", tabsub:"Cristo & Tijuca", title:"Jueves 15 de octubre", note:"Cristo Redentor y los miradores del Parque Nacional da Tijuca el mismo día (misma zona de montaña), con el Museu do Universo de regreso y fiesta en Botafogo.",
   planes:[
     {nombre:"Cristo Redentor (van oficial)", hora:"08:30 – 12:00", desc:"El ícono de Río. Van oficial que sale directo desde Copacabana, sube al Corcovado y da tiempo libre arriba.", transporte:"Van oficial puerta a puerta desde Copacabana, ~30–40 min de subida", tags:["Imperdible","Reservar antes"],
       budget:[["Van oficial ida/vuelta + entrada","R$ 132"]],
-      pros:["Transporte incluido en el ticket","Vista de 360° de la ciudad","Se combina con Tijuca el mismo día, ahorrando un viaje aparte"], cons:["Debe reservarse con anticipación (cupos limitados)","Niebla puede tapar la vista según el día"],
-      axes:["Seguridad: alta","Tiempo: 3.5h","Costo: medio"], reqs:["Comprar entrada online con día/hora fija; llegar 20 min antes del horario de embarque."]},
-    {nombre:"Parque Nacional da Tijuca (Vista Chinesa, Mesa do Imperador, Cascatinha)", hora:"13:00 – 18:00", desc:"El bosque urbano más grande del mundo. Recorrido corto entre miradores y cascadas, en la misma zona de montaña donde ya están tras bajar del Corcovado.", transporte:"Uber/van desde Cosme Velho/Paineiras → Alto da Boa Vista, 15–20 min (mucho más corto que ir desde Copacabana)", tags:["Miradores gratis","Naturaleza","Bajo costo"],
-      budget:[["Entrada al parque","gratis"],["Uber compartido (3 autos)","≈ R$ 20"],["Guía local opcional (grupo)","≈ R$ 90 total ÷9"]],
-      pros:["Entrada y miradores completamente gratuitos","Traslado corto por estar en la misma zona que el Cristo","Buen ejercicio al aire libre"], cons:["Transporte público es limitado — conviene ir en auto/tour","Puede llover en el bosque (clima cambiante)"],
-      axes:["Seguridad: alta","Tiempo: 5h","Costo: bajo"], reqs:["Calzado de trekking, agua y repelente de mosquitos."]},
-    {nombre:"Tarde libre / descanso", hora:"18:30 en adelante", desc:"Cena liviana cerca del hospedaje y descanso antes del viernes de museos y fiesta.", transporte:"A pie", tags:["Gratis","Descanso"],
-      budget:[["Sin costo fijo","—"]], pros:["Recuperar energía"], cons:[],
-      axes:["Seguridad: alta","Tiempo: libre","Costo: gratis"], reqs:[]}
+      pros:["Transporte incluido en el ticket","Vista de 360° de la ciudad","Se combina con Tijuca el mismo día"], cons:["Reservar con anticipación (cupos limitados)","Niebla puede tapar la vista"],
+      axes:["Seguridad: alta","Tiempo: 3.5h","Costo: medio"], reqs:["Comprar entrada online con día/hora fija; llegar 20 min antes del embarque."]},
+    {nombre:"Parque Nacional da Tijuca (Vista Chinesa, Mesa do Imperador, Cascatinha)", hora:"13:00 – 17:30", desc:"El bosque urbano más grande del mundo. Miradores y cascadas en la misma zona de montaña donde ya están tras bajar del Corcovado.", transporte:"Uber desde Cosme Velho/Paineiras → Alto da Boa Vista, 15–20 min", tags:["Miradores gratis","Naturaleza","Bajo costo"],
+      budget:[["Entrada al parque","gratis"],["Uber compartido (3 autos)","≈ R$ 20"],["Guía local opcional (grupo, total R$90÷9)","≈ R$ 10"]],
+      pros:["Entrada y miradores gratuitos","Traslado corto por estar en la misma zona que el Cristo","Buen ejercicio al aire libre"], cons:["Transporte público limitado — mejor ir en auto/tour","Clima cambiante"],
+      axes:["Seguridad: alta","Tiempo: 4.5h","Costo: bajo"], reqs:["Calzado de trekking, agua y repelente de mosquitos."]},
+    {nombre:"Museu do Universo (Planetário, Gávea)", hora:"18:00 – 19:00", desc:"Parada de regreso hacia Zona Sul — queda de camino entre Tijuca y Copacabana, pasando por Jardim Botânico/Gávea. Es gratis los martes, pero al visitarlo jueves se paga entrada regular.", transporte:"Uber desde Tijuca → Gávea, 15–20 min", tags:["De paso","Entrada regular hoy"],
+      budget:[["Entrada (no es martes)","≈ R$ 20"]],
+      pros:["Está de camino, sin desvío grande","Buena opción si quedan con energía"], cons:["No es gratis al no caer en martes","Puede saltarse si el grupo prefiere ir directo a descansar"],
+      axes:["Seguridad: alta","Tiempo: 1h","Costo: bajo"], reqs:[]},
+    {nombre:"🎉 Fiesta — Comuna (Botafogo)", hora:"21:00 – 01:00", desc:"Ir: cervecería/bar de ambiente joven y relajado en Botafogo, buena música en vivo y comida — menos abrumador que Lapa, ideal tras un día largo de trekking.", transporte:"Uber Copacabana → Botafogo, 15–20 min", tags:["Fiesta","Ambiente relajado"],
+      budget:[["Consumo (comida+bebida)","≈ R$ 70"],["Uber compartido ida/vuelta (3 autos)","≈ R$ 15"]],
+      pros:["Ambiente relajado tras un día exigente","Buena relación precio-calidad","Cerca de Botafogo, traslado corto"], cons:["Puede llenarse los jueves por la noche"],
+      axes:["Seguridad: alta","Tiempo: 4h","Costo: bajo-medio"], reqs:[]}
   ]},
-{ key:"d6", tab:"Vie 16", tabsub:"🎉 Fiesta", title:"Viernes 16 de octubre", note:"Mañana en el Centro (AquaRio, Colombo y Maracaná) y noche de fiesta en Vidigal, cerca del hospedaje.",
+{ key:"d6", tab:"Vie 16", tabsub:"🎉 Fiesta", title:"Viernes 16 de octubre", note:"Mañana/tarde en el Centro (AquaRio, Colombo, Real Gabinete, Maracaná) y noche de fiesta en Vidigal, cerca del hospedaje.",
   planes:[
     {nombre:"AquaRio", hora:"10:00 – 12:00", desc:"El acuario marino más grande de Sudamérica, en Praça Mauá.", transporte:"Uber Copacabana → Praça Mauá, 25–30 min", tags:["Aire acondicionado","Reservar online"],
       budget:[["Entrada","≈ R$ 110"],["Uber compartido (3 autos)","≈ R$ 13"]],
-      pros:["Ideal si hace mucho calor","Cerca de Colombo y Maracaná (misma zona)"], cons:["Puede haber fila si no se compra online","Entrada no es de las más económicas"],
+      pros:["Ideal si hace mucho calor","Cerca del resto del plan de hoy"], cons:["Puede haber fila si no se compra online"],
       axes:["Seguridad: alta","Tiempo: 2h","Costo: medio"], reqs:["Comprar entrada online con horario asignado."]},
-    {nombre:"Confeitaria Colombo", hora:"12:15 – 13:15", desc:"La histórica pastelería del Centro de Río, famosa por sus tortas y salón art nouveau.", transporte:"A pie desde AquaRio, 10–15 min", tags:["Icónico","Bajo costo"],
-      budget:[["Café + dulce","≈ R$ 35"]], pros:["Muy bajo costo","Parada corta entre AquaRio y Maracaná"], cons:["Suele estar lleno al mediodía"],
-      axes:["Seguridad: alta","Tiempo: 1h","Costo: bajo"], reqs:[]},
-    {nombre:"Estádio do Maracanã (tour)", hora:"14:00 – 15:30", desc:"Recorrido guiado por el estadio mítico del fútbol brasileño: vestuarios, campo y museo.", transporte:"Uber Centro → Maracanã, 15–20 min", tags:["Historia","Cierra temprano"],
-      budget:[["Entrada tour guiado","≈ R$ 80"],["Uber compartido (3 autos)","≈ R$ 10"]], pros:["Corta duración","Poco traslado desde el Centro"], cons:["Verificar último horario de tour del día"],
+    {nombre:"Confeitaria Colombo + Real Gabinete Português de Leitura", hora:"12:15 – 13:45", desc:"La histórica pastelería del Centro (famosa por sus tortas, salón art nouveau) y, a 10 minutos caminando, la biblioteca más bella de Sudamérica — abre de lunes a viernes, por eso se puso hoy.", transporte:"A pie desde AquaRio, 10–15 min; luego a pie entre ambos, 10 min", tags:["Icónico","Bajo costo"],
+      budget:[["Café + dulce en Colombo","≈ R$ 35"],["Entrada Real Gabinete","R$ 10"]],
+      pros:["Dos íconos culturales a pie, sin transporte","Muy bajo costo"], cons:["Suele estar lleno al mediodía","Real Gabinete cierra ~17h — ir temprano en la tarde"],
+      axes:["Seguridad: alta","Tiempo: 1.5h","Costo: bajo"], reqs:["Confirmar horario de la Real Gabinete antes de salir (lunes a viernes)."]},
+    {nombre:"Opción A — Estádio do Maracanã (tour)", hora:"14:30 – 16:00", desc:"Recorrido guiado por el estadio mítico del fútbol brasileño: vestuarios, campo y museo.", transporte:"Uber Centro → Maracanã, 15–20 min", tags:["Opción A","Historia","Cierra temprano"],
+      budget:[["Entrada tour guiado","≈ R$ 80"],["Uber compartido (3 autos)","≈ R$ 10"]], pros:["Corta duración","Para los fanáticos del fútbol, imperdible"], cons:["Verificar último horario de tour del día","Más lejos del resto del plan de hoy"],
       axes:["Seguridad: alta","Tiempo: 1.5h","Costo: medio"], reqs:["Confirmar horario de tours ese día (puede variar por eventos)."]},
-    {nombre:"🎉 Noche de fiesta — Bosque Bar / Mirante Rocinha (Vidigal)", hora:"22:00 – 02:00", desc:"Bares con vista panorámica nocturna sobre Ipanema/Leblon, en el mirador de Vidigal — la zona de fiesta con mejor relación cercanía-ambiente respecto al hospedaje.", transporte:"Uber Copacabana → Vidigal, 20–25 min", tags:["Fiesta","Ir en Uber, no caminar"],
+    {nombre:"Opción B — Cidade do Samba", excludeFromTotal:true, hora:"14:30 – 16:00", desc:"Alternativa para quien no es fan del fútbol: el galpón donde se construyen las alegorías y fantasías del Carnaval carioca, con tour guiado — y está en Gamboa, mucho más cerca de Praça Mauá que Maracanã.", transporte:"A pie/Uber corto desde Colombo/Real Gabinete, 10–15 min", tags:["Opción B","Cultura","Más cerca"],
+      budget:[["Entrada tour guiado","≈ R$ 40"],["Uber compartido (3 autos)","≈ R$ 8"]], pros:["Mucho más cerca del resto del plan de hoy (ahorra traslado)","Más barata que el tour de Maracanã","Experiencia cultural única, menos turística"], cons:["No hay partido ni cancha — no es para fanáticos del fútbol"],
+      axes:["Seguridad: alta","Tiempo: 1.5h","Costo: bajo"], reqs:["Confirmar horarios de tour guiado."]},
+    {nombre:"🎉 Noche de fiesta — Bosque Bar / Mirante Rocinha (Vidigal)", hora:"22:00 – 02:00", desc:"Ir: vista panorámica nocturna sobre Ipanema/Leblon desde el mirador de Vidigal — de las zonas de fiesta, la de mejor relación cercanía-ambiente con el hospedaje.", transporte:"Uber Copacabana → Vidigal, 20–25 min", tags:["Fiesta","Ir en Uber, no caminar"],
       budget:[["Entrada/cover","≈ R$ 30"],["Consumo bebidas","≈ R$ 60"],["Uber compartido ida/vuelta (3 autos)","≈ R$ 25"]],
-      pros:["Vista nocturna espectacular de la ciudad","Ambiente joven, buena música","De las zonas de fiesta, la más cercana al hospedaje"], cons:["Acceso por calles empinadas de favela — ir siempre en auto autorizado","No caminar de noche en la zona"],
+      pros:["Vista nocturna espectacular","Ambiente joven, buena música","La más cercana al hospedaje entre las zonas de fiesta"], cons:["Acceso por calles empinadas de favela — ir siempre en auto autorizado","No caminar de noche en la zona"],
       axes:["Seguridad: media (solo con transporte autorizado)","Tiempo: 4h","Costo: medio"], reqs:["Ir y volver únicamente en Uber/99 o taxi, nunca a pie de noche."]}
   ]},
-{ key:"d7", tab:"Sáb 17", tabsub:"Paddle & Asa delta", title:"Sábado 17 de octubre", note:"Amanecer en el agua y vuelo en ala delta — dos actividades imperdibles, mañana intensa y tarde libre.",
+{ key:"d7", tab:"Sáb 17", tabsub:"Mañana: A o B", title:"Sábado 17 de octubre — Elige la mañana", note:"Mañana con dos opciones de ritmo muy distinto — adrenalina o relax en el agua. El resto del día (Centro Histórico y fiesta en Lapa) es igual para ambas.",
   planes:[
-    {nombre:"Paddle board al amanecer", hora:"05:45 – 07:30", desc:"Sesión guiada de stand up paddle en la Lagoa Rodrigo de Freitas o frente a Copacabana, con aguas calmas y sin viento.", transporte:"Uber a la Lagoa, 10–15 min (o a pie en Copacabana, 5 min)", tags:["Amanecer","Bajo costo","Poca gente"],
-      budget:[["Clase + alquiler de tabla","≈ R$ 100"],["Uber compartido (si Lagoa)","≈ R$ 8"]],
-      pros:["Aguas muy calmas a esa hora","Experiencia única y fotogénica","Precio accesible"], cons:["Hay que madrugar bastante","Depende del clima"],
-      axes:["Seguridad: alta","Tiempo: 1.5h","Costo: bajo"], reqs:["Reservar la clase el día anterior; llevar ropa de baño y toalla."]},
-    {nombre:"⚠️ Ala delta — Pedra Bonita, São Conrado", hora:"10:00 – 13:00", desc:"Vuelo doble con instructor certificado CBVL, despegue desde la Pedra Bonita y aterrizaje en la playa de São Conrado.", transporte:"Traslado incluido desde el club, o Uber 20–25 min", tags:["Aventura","Depende del clima","Riesgo"],
+    {nombre:"⚠️ Opción A — Ala delta, Pedra Bonita (São Conrado)", hora:"10:00 – 13:00", desc:"Vuelo doble con instructor certificado CBVL, despegue desde la Pedra Bonita y aterrizaje en la playa de São Conrado.", transporte:"Traslado incluido desde el club, o Uber 20–25 min", tags:["Opción A","Aventura","Depende del clima","Riesgo"],
       budget:[["Vuelo doble con instructor + seguro","≈ R$ 900"]],
-      pros:["Vistas aéreas espectaculares de toda la zona sur","No requiere experiencia previa"], cons:["Es una actividad de riesgo real: hubo accidentes fatales reportados en Río en 2026 — elegir siempre un club certificado (CBVL) y aceptar volar solo si las condiciones de viento son buenas","Depende 100% del clima, puede suspenderse el mismo día","Es el gasto más alto del viaje"],
-      axes:["Seguridad: cuidado — actividad de riesgo","Tiempo: 3h (vuelo real ~15-20 min)","Costo: alto"], reqs:["Reservar con operador certificado por la Confederação Brasileira de Voo Livre (CBVL).","Firmar exención de responsabilidad; llevar calzado cerrado y ropa cómoda.","Quien prefiera no volar puede quedarse observando en la playa de São Conrado sin costo."]},
-    {nombre:"Tarde libre", hora:"14:00 en adelante", desc:"Descanso, compras o playa antes de la última jornada.", transporte:"—", tags:["Gratis"],
-      budget:[["Sin costo fijo","—"]], pros:["Día de descanso tras dos actividades intensas"], cons:[], axes:["Seguridad: alta","Tiempo: libre","Costo: gratis"], reqs:[]}
-  ]},
-{ key:"d8", tab:"Dom 18", tabsub:"🔀 Variado", title:"Domingo 18 de octubre — Plan variado", note:"Día de salida: se ofrece un mosaico de mini-planes de medio día para armar a gusto de cada quien antes del vuelo.",
-  planes:[
-    {nombre:"🔀 Plan variado — elige tu mañana", hora:"08:00 – 13:00", desc:"Día de baja concurrencia ideal para mini-planes independientes según el horario del vuelo de cada persona.", transporte:"Ver cada mini-plan", tags:["Flexible","Día de salida"],
+      pros:["Vistas aéreas espectaculares de toda la zona sur","No requiere experiencia previa"], cons:["Actividad de riesgo real: hubo accidentes fatales reportados en Río en 2026 — elegir siempre un club certificado (CBVL) y volar solo con buenas condiciones de viento","Depende 100% del clima, puede suspenderse el mismo día","Es el gasto más alto del viaje"],
+      axes:["Seguridad: cuidado — actividad de riesgo","Tiempo: 3h (vuelo real ~15-20 min)","Costo: alto"], reqs:["Reservar con operador certificado por la CBVL.","Firmar exención de responsabilidad; llevar calzado cerrado y ropa cómoda.","Quien prefiera no volar puede quedarse observando en la playa sin costo."]},
+    {nombre:"Opción B — Yate privado + churrasco (Zona Sul)", excludeFromTotal:true, hora:"10:00 – 13:00", desc:"Alternativa sin riesgo: yate privado navegando la costa de Ipanema/Leblon/Vidigal, con churrasco y bebidas a bordo — mismo horario que la Opción A, para quienes prefieren algo relajado en vez de adrenalina.", transporte:"Uber Copacabana → marina, 10–15 min", tags:["Opción B","Relax","Sin riesgo"],
+      budget:[["Yate privado 3h (grupo, dividido entre 9)","≈ R$ 250"],["Churrasco + bebidas a bordo","≈ R$ 90"]],
+      pros:["Cero riesgo físico comparado con ala delta","Buenas vistas de la costa de todas formas","Churrasco y bebidas incluidos, ambiente relajado de grupo"], cons:["No tiene la adrenalina/vista aérea de la Opción A","Depende del clima/mar igual que cualquier salida en barco"],
+      axes:["Seguridad: alta","Tiempo: 3h","Costo: medio"], reqs:["Reservar con un día de antelación y confirmar el menú del churrasco a bordo."]},
+    {nombre:"Centro Histórico — Cinelândia", hora:"14:30 – 17:30", desc:"Cluster de atracciones todas a pocos metros entre sí, en la misma plaza y alrededores de Cinelândia.", transporte:"Uber São Conrado → Cinelândia, 30–35 min", tags:["Miradores","Caminata corta entre paradas"],
       variedad:[
-        "🥊 Clase de Muay Thai — BTT Lagoa (Leblon), acepta extranjeros/principiantes, 08:00–09:00. Uber 10–15 min. ≈ R$ 100 pp. Reservar por Instagram/WhatsApp un día antes; llevar ropa deportiva.",
-        "🏘️ Tour comunitario Favela Santa Marta — 10:00–12:00, con guía local autorizado (no ir por cuenta propia). Uber a Botafogo 15 min. ≈ R$ 80 pp.",
-        "🧺 Feira Hippie de Ipanema — solo domingos, artesanías y música en vivo, 10:00–13:00. Uber/caminata corta. Gratis entrar.",
-        "🏖️ Última tarde de playa en Copacabana + almuerzo liviano cerca del hospedaje antes de ir al aeropuerto."
+        "Museu Nacional de Belas Artes — una de las colecciones de arte más importantes de Brasil, 14:30–15:15.",
+        "Biblioteca Nacional do Brasil — la biblioteca más grande de Latinoamérica, justo al lado, 15:20–15:50.",
+        "Teatro Municipal do Rio — fachada e interior inspirados en la Ópera de París, 15:55–16:20 (tour guiado si hay cupo).",
+        "Igreja de São Francisco de Paula — interior barroco, a 5 minutos caminando, 16:30–17:00."
       ],
-      budget:[["Muay Thai (opcional)","≈ R$ 100"],["Favela tour (opcional)","≈ R$ 80"],["Feira Hippie","gratis"],["Traslados varios","≈ R$ 20–30"]],
-      pros:["Máxima flexibilidad para el último día","Todas las opciones son de bajo costo","Se adapta a distintos horarios de vuelo"], cons:["Requiere coordinar quién hace qué mini-plan","El tour de favela debe ser siempre guiado"],
-      axes:["Seguridad: alta (favela solo con guía)","Tiempo: medio día","Costo: bajo"], reqs:["Reservar Muay Thai con antelación.","Contratar solo guías locales autorizados para la favela.","Dejar equipaje listo/checkout antes de salir."]}
+      budget:[["MNBA","≈ R$ 20"],["Biblioteca Nacional","gratis"],["Teatro Municipal (tour)","≈ R$ 20"],["Igreja São Francisco de Paula","gratis"]],
+      pros:["Todo caminable, cero Ubers entre paradas","Alta densidad cultural en poco tiempo","Bajo costo total"], cons:["Varios cierran 17h — no se puede empezar tarde"],
+      axes:["Seguridad: alta","Tiempo: 3h","Costo: bajo"], reqs:["Confirmar horario del tour guiado del Teatro Municipal (cupos limitados)."]},
+    {nombre:"🎉 Fiesta de calle — Arcos da Lapa / Rua do Lavradio", hora:"21:00 – 01:00", desc:"Ir: la fiesta de calle más icónica de Río, bajo los Arcos da Lapa — bares callejeros, música en vivo improvisada, ambiente 100% joven y gratis entrar. Literalmente a 10 minutos caminando de donde terminó el plan cultural de la tarde.", transporte:"A pie desde Cinelândia, 10 min", tags:["Gratis entrar","Caminata desde el plan anterior"],
+      budget:[["Entrada","gratis"],["Bebidas en puestos callejeros","≈ R$ 40"]],
+      pros:["Cero traslado extra desde el plan de la tarde","Gratis entrar, solo se paga lo que consuman","Ambiente genuinamente carioca, no turístico"], cons:["Zona muy concurrida — cuidar pertenencias","Volver en Uber, no caminar solos de madrugada"],
+      axes:["Seguridad: media (andar en grupo, volver en auto)","Tiempo: 4h","Costo: bajo"], reqs:[]}
+  ]},
+{ key:"d8", tab:"Dom 18", tabsub:"🔀 Variado", title:"Domingo 18 de octubre — Último día completo", note:"El vuelo de regreso es lunes 19 a las 5:00 a.m., así que el domingo es un día entero libre: mañana variada, atardecer en Arpoador, cena de despedida y una ventana para empacar/descansar antes de ir al aeropuerto de madrugada.",
+  planes:[
+    {nombre:"🔀 Plan variado — elige tu mañana", hora:"09:00 – 13:00", desc:"Mini-planes independientes para armar a gusto de cada quien.", transporte:"Ver cada mini-plan", tags:["Flexible"],
+      variedad:[
+        "🏘️ Tour comunitario Favela Santa Marta — 10:00–12:00, con guía local autorizado. Uber a Botafogo 15 min. ≈ R$ 80 pp.",
+        "🧺 Feira Hippie de Ipanema — solo domingos, artesanías y música en vivo, 10:00–13:00. Gratis entrar.",
+        "🏖️ Mañana de playa en Copacabana, sin plan fijo."
+      ],
+      budget:[["Favela tour (opcional)","≈ R$ 80"],["Feira Hippie","gratis"],["Traslados varios","≈ R$ 15"]],
+      pros:["Máxima flexibilidad","Todas las opciones son de bajo costo"], cons:["Requiere coordinar quién hace qué mini-plan","El tour de favela debe ser siempre guiado"],
+      axes:["Seguridad: alta (favela solo con guía)","Tiempo: medio día","Costo: bajo"], reqs:["Contratar solo guías locales autorizados para la favela."]},
+    {nombre:"Atardecer en Arpoador", hora:"18:00 – 19:00", desc:"El mirador de atardecer más icónico y gratuito de Río, entre Ipanema y Copacabana — la gente aplaude cuando el sol se mete en el mar. Cierre perfecto de la última tarde.", transporte:"A pie/Uber corto desde Copacabana, 10–15 min", tags:["Gratis","Imperdible","Bajo costo"],
+      budget:[["Sin costo fijo","gratis"]], pros:["Gratis","Muy cerca del hospedaje","Experiencia 100% carioca para cerrar el viaje"], cons:["Se llena — llegar con tiempo para encontrar buen lugar"],
+      axes:["Seguridad: alta","Tiempo: 1h","Costo: gratis"], reqs:[]},
+    {nombre:"🎉 Cena de despedida — Churrascaria Carretão", hora:"20:00 – 22:00", desc:"Rodízio clásico en Copacabana, ambiente festivo y buena relación precio-grupo para cerrar el viaje todos juntos.", transporte:"A pie desde el hospedaje, 5–10 min", tags:["Cierre del viaje","Reservar mesa"],
+      budget:[["Rodízio + bebidas por persona","≈ R$ 140"]],
+      pros:["A pie, sin transporte","Buen cierre grupal del viaje","Precio razonable para rodízio"], cons:["Reservar mesa para 9 con antelación"],
+      axes:["Seguridad: alta","Tiempo: 2h","Costo: medio"], reqs:["Reservar mesa para 9 con antelación."]},
+    {nombre:"Empacar, descansar y traslado al aeropuerto", hora:"22:30 – 03:30", desc:"Con el vuelo a las 5:00 a.m. del lunes, conviene dejar las maletas listas antes de dormir y salir hacia el aeropuerto con margen — no hay tiempo para dormir mucho, así que mejor descansar lo posible en la tarde si pueden.", transporte:"Taxi/Uber Copacabana → aeropuerto, 35–45 min (Galeão) — pedir 3 autos, salir ≈03:30 para un vuelo a las 5:00", tags:["Antes del vuelo"],
+      budget:[["Taxi/Uber aeropuerto (3 autos)","≈ R$ 60"]],
+      pros:["Margen suficiente para el vuelo de las 5 a.m.","Empacar la noche anterior evita apuros"], cons:["Noche corta — considerar turnarse para dormir algo antes de la cena"],
+      axes:["Seguridad: alta","Tiempo: 5h","Costo: bajo"], reqs:["Confirmar la hora de recogida para 9 personas y equipaje con el conductor/empresa de transporte."]}
   ]}
 ];
+
 
 const tabsEl = document.getElementById('tabs');
 const daysEl = document.getElementById('days');
 
+function firstNum(str){
+  const m = (str||'').match(/[\d]+(?:[.,]\d+)?/);
+  if(!m) return 0;
+  return parseFloat(m[0].replace(',','.'));
+}
+const BRL_TO_COP = 730;
+function copFmt(n){ return Math.round(n).toLocaleString('es-CO'); }
+function addCOP(str){
+  return str.replace(/R\$\s*([\d]+(?:[.,]\d+)?)/g, (m,num)=>{
+    const n = parseFloat(num.replace(',','.'));
+    return m + ' <span style="color:var(--sub);font-weight:400">(~$'+copFmt(n*BRL_TO_COP)+' COP)</span>';
+  });
+}
+
+/* ---- Pestaña "Reservas" (primera, antes de los días) ---- */
+const reservas = [
+  {nombre:"Cristo Redentor — van oficial", nota:"Cupos limitados, sobre todo fin de semana/temporada alta.", url:"https://www.paineirascorcovado.com.br"},
+  {nombre:"Pão de Açúcar — bondinho", nota:"Comprar online evita filas y suele salir ~10% más barato.", url:"https://www.bondinho.com.br"},
+  {nombre:"AquaRio", nota:"Entrada con horario asignado.", url:"https://www.aquariomarinhodorio.com.br"},
+  {nombre:"Estádio do Maracanã — tour guiado", nota:"Confirmar horario del día (varía por eventos).", url:"https://www.tourmaracana.com.br"},
+  {nombre:"Opción A: Ilha Grande / Angra dos Reis (barco día completo)", nota:"Reservar con al menos una semana — grupos de 9 llenan la van.", url:"https://www.google.com/search?q=passeio+escuna+ilha+grande+saindo+do+rio+de+janeiro"},
+  {nombre:"Opción B: Lancha 5h Bahía de Guanabara + Kit Churrasco", nota:"Confirmar con el operador si piden el Kit Churrasco (avisar un día antes).", url:"https://www.google.com/search?q=passeio+de+lancha+5+horas+bahia+de+guanabara+kit+churrasco"},
+  {nombre:"Ala delta — Pedra Bonita (operador certificado CBVL)", nota:"Exigir certificación CBVL; depende del clima.", url:"https://www.cbvl.com.br"},
+  {nombre:"Rio Scenarium (Lapa)", nota:"Reservar mesa para 9 con anticipación.", url:"https://www.rioscenarium.com.br"},
+  {nombre:"Teatro Municipal do Rio — tour guiado", nota:"Cupos limitados para el tour por los bastidores.", url:"https://theatromunicipal.rj.gov.br"},
+  {nombre:"Cidade do Samba (Opción B de Maracanã, viernes)", nota:"Confirmar horarios de tour guiado.", url:"https://www.cidadedosambarj.com.br"},
+  {nombre:"Yate privado + churrasco (Opción B de ala delta, sábado)", nota:"Reservar con un día de antelación, confirmar menú del churrasco a bordo.", url:"https://www.google.com/search?q=aluguel+de+iate+rio+de+janeiro+com+churrasco+a+bordo"},
+];
+const reservasBtn = document.createElement('button');
+reservasBtn.className = 'tab';
+reservasBtn.innerHTML = '📋 Reservas<small>Antes de viajar</small>';
+reservasBtn.onclick = ()=>activate(0);
+tabsEl.appendChild(reservasBtn);
+
+const reservasSection = document.createElement('section');
+reservasSection.className = 'day';
+reservasSection.id = 'reservas';
+reservasSection.innerHTML = '<div class="daytitle"><h2>Reservas y compras anticipadas</h2></div>'
+  +'<p class="daynote">Lo que conviene reservar/comprar online antes de viajar para evitar filas o quedarse sin cupo. Links de referencia — confirmar vigencia y precio antes de pagar.</p>'
+  +'<div class="card" style="cursor:default">'
+  +reservas.map(r=>'<div style="padding:10px 0;border-bottom:1px solid var(--line)"><b style="font-size:14.5px">'+r.nombre+'</b><div style="font-size:12.5px;color:var(--sub);margin:3px 0">'+r.nota+'</div><a href="'+r.url+'" target="_blank" rel="noopener" style="font-size:12.5px;color:var(--sea-dark);font-weight:700">Ir al sitio →</a></div>').join('')
+  +'</div>'
+  +'<div class="info-block" id="budgetBlock" style="margin:18px 0 0">'
+    +'<h3>💰 Presupuesto estimado por persona</h3>'
+    +'<div id="budgetSummary"></div>'
+    +'<p style="margin-top:10px">Gastos varios frecuentes (bajo costo, no entran en los totales de arriba porque son a discreción de cada quien):</p>'
+    +'<table class="budget-table" id="extraGastosTable"></table>'
+  +'</div>'
+  +'<div class="info-block">'
+    +'<h3>👗 Ideas de outfits</h3>'
+    +'<p>Inspiración curada por ocasión — cada link abre una búsqueda en Pinterest con resultados actuales:</p>'
+    +'<div id="outfitLinks" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:6px"></div>'
+  +'</div>'
+  +'<div class="info-block">'
+    +'<h3>🧳 Requisitos generales para todo el viaje</h3>'
+    +'<ul class="reqs">'
+      +'<li>Documento de identidad/pasaporte vigente (llevar copia digital y física).</li>'
+      +'<li>Reservar con anticipación: Cristo Redentor, Pão de Açúcar, AquaRio e Ilha Grande tienen cupos limitados, sobre todo en temporada alta.</li>'
+      +'<li>Efectivo en reales (billetes chicos) para transporte informal, propinas y puestos callejeros; el resto se paga con tarjeta o Pix.</li>'
+      +'<li>Apps Uber/99 instaladas — moverse en grupo de 9 implica pedir 2–3 autos a la vez.</li>'
+      +'<li>Seguro de viaje con cobertura de actividades de aventura (recomendable para ala delta, SUP y trekking).</li>'
+      +'<li>Protector solar, gorra, calzado cómodo y ropa de baño — casi todos los días combinan playa/naturaleza con caminatas.</li>'
+      +'<li>Precaución estándar de gran ciudad: no exhibir celulares/joyas de noche, evitar caminar solo en zonas poco iluminadas (Centro, Saúde, subidas a favelas), y usar siempre transporte autorizado para volver de noche.</li>'
+      +'<li>Vuelo de regreso: lunes 19 a las 5:00 a.m. — dejar equipaje listo el domingo por la noche.</li>'
+    +'</ul>'
+  +'</div>';
+daysEl.appendChild(reservasSection);
+
+const allTabBtns = [reservasBtn];
+const allSections = [reservasSection];
+
+function activate(idx){
+  allTabBtns.forEach((b,k)=>b.classList.toggle('active', k===idx));
+  allSections.forEach((s,k)=>s.classList.toggle('active', k===idx));
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
 dias.forEach((d,i)=>{
   const t = document.createElement('button');
-  t.className = 'tab'+(i===0?' active':'');
+  t.className = 'tab';
   t.innerHTML = d.tab+'<small>'+d.tabsub+'</small>';
-  t.onclick = ()=>showDay(i);
+  t.onclick = ()=>activate(i+1);
   tabsEl.appendChild(t);
+  allTabBtns.push(t);
 
   const s = document.createElement('section');
-  s.className = 'day'+(i===0?' active':'');
+  s.className = 'day';
   s.id = d.key;
+  allSections.push(s);
   let flag = '';
   if(d.title.includes('cumpleaños') || d.title.includes('Cumpleaños')) flag = '<span class="flag cumple">🎂 Llegada y cumpleaños</span>';
   if(d.tabsub.includes('Fiesta')) flag = '<span class="flag fiesta">🎉 Noche de fiesta</span>';
@@ -317,20 +430,43 @@ dias.forEach((d,i)=>{
   daysEl.appendChild(s);
 });
 
-function showDay(i){
-  document.querySelectorAll('.tab').forEach((t,idx)=>t.classList.toggle('active', idx===i));
-  document.querySelectorAll('section.day').forEach((s,idx)=>s.classList.toggle('active', idx===i));
-  window.scrollTo({top:0,behavior:'smooth'});
-}
+activate(1); // abre en lunes 12 por defecto; la pestaña Reservas queda primera pero no forzada al cargar
 
-const BRL_TO_COP = 730;
-function copFmt(n){ return Math.round(n).toLocaleString('es-CO'); }
-function addCOP(str){
-  return str.replace(/R\$\s*([\d]+(?:[.,]\d+)?)/g, (m,num)=>{
-    const n = parseFloat(num.replace(',','.'));
-    return m + ' <span style="color:var(--sub);font-weight:400">(~$'+copFmt(n*BRL_TO_COP)+' COP)</span>';
+/* ---- Presupuesto total: suma automática de cada budget[] en dias ---- */
+(function renderBudgetSummary(){
+  const el = document.getElementById('budgetSummary');
+  let rows = '', grand = 0;
+  dias.forEach(d=>{
+    let daySum = 0;
+    d.planes.forEach(p=>{ if(p.excludeFromTotal) return; (p.budget||[]).forEach(b=>{ daySum += firstNum(b[1]); }); });
+    grand += daySum;
+    rows += '<tr><td>'+d.tab+' — '+d.tabsub+'</td><td>≈ R$ '+Math.round(daySum)+' <span style="color:var(--sub);font-weight:400">(~$'+copFmt(daySum*BRL_TO_COP)+' COP)</span></td></tr>';
   });
-}
+  rows += '<tr class="budget-total"><td>Total estimado del viaje</td><td>≈ R$ '+Math.round(grand)+' <span style="display:block;font-weight:700;font-size:12.5px;color:var(--sub)">(~$'+copFmt(grand*BRL_TO_COP)+' COP)</span></td></tr>';
+  el.innerHTML = '<table class="budget-table">'+rows+'</table><p style="font-size:11.5px;color:var(--sub);margin-top:8px">Este total asume la Opción A en los días con doble opción (miércoles: Ilha Grande; viernes: Maracanã; sábado: ala delta). Si el grupo elige alguna Opción B, el total del viaje baja — se puede ver el detalle abriendo cada tile.</p>';
+})();
+
+/* ---- Gastos varios (no entran en el total de arriba) ---- */
+const extraGastos = [
+  ["Caipirinha en bar/restaurante","≈ R$ 20"],
+  ["Havaianas (par, tienda de barrio)","≈ R$ 35"],
+  ["Açaí en la playa","≈ R$ 18"],
+  ["Pastel + caldo de cana (feira/quiosco)","≈ R$ 12"],
+  ["Agua de coco en la playa","≈ R$ 8"],
+  ["Camiseta/souvenir básico","≈ R$ 40"],
+  ["Propina (10% opcional en restaurantes)","variable"]
+];
+document.getElementById('extraGastosTable').innerHTML = extraGastos.map(g=>'<tr><td>'+g[0]+'</td><td>'+addCOP(g[1])+'</td></tr>').join('');
+
+/* ---- Outfits (links de búsqueda en Pinterest) ---- */
+const outfits = [
+  ["Playa / día casual Río", "https://www.pinterest.com/search/pins/?q=outfit%20praia%20brasil%20casual"],
+  ["Fiesta nocturna Lapa/Vidigal", "https://www.pinterest.com/search/pins/?q=outfit%20festa%20balada%20rio%20de%20janeiro"],
+  ["Day-trip en barco", "https://www.pinterest.com/search/pins/?q=outfit%20passeio%20de%20barco%20verao"],
+  ["Trekking Tijuca / Cristo", "https://www.pinterest.com/search/pins/?q=outfit%20trilha%20trekking%20tropical"],
+  ["Cena elegante-casual", "https://www.pinterest.com/search/pins/?q=outfit%20jantar%20casual%20elegante%20verao"]
+];
+document.getElementById('outfitLinks').innerHTML = outfits.map(o=>'<a href="'+o[1]+'" target="_blank" rel="noopener" class="tag" style="padding:7px 12px;font-size:12.5px">'+o[0]+' →</a>').join('');
 
 function openModal(dayKey, idx){
   const d = dias.find(x=>x.key===dayKey);
@@ -338,11 +474,7 @@ function openModal(dayKey, idx){
   const m = document.getElementById('modal');
   let rows = p.budget.map(b=>'<tr><td>'+b[0]+'</td><td>'+addCOP(b[1])+'</td></tr>').join('');
   let totalLine = '';
-  const nums = p.budget.map(b=>{
-    const n = parseFloat((b[1]||'').replace(/[^\d.,]/g,'').replace(',','.'));
-    return isNaN(n)?0:n;
-  });
-  const sum = nums.reduce((a,b)=>a+b,0);
+  const sum = p.budget.reduce((a,b)=> a+firstNum(b[1]), 0);
   if(sum>0){ totalLine = '<tr class="budget-total"><td>Total aprox. por persona</td><td>≈ R$ '+Math.round(sum)+' <span style="display:block;font-weight:700;font-size:12.5px;color:var(--sub)">(~$'+copFmt(sum*BRL_TO_COP)+' COP)</span></td></tr>'; }
 
   let html = '<button class="close" onclick="closeModal()">✕</button>';
